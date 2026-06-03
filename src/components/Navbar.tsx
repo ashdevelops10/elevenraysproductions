@@ -1,0 +1,130 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { NAV_LINKS, SITE } from "@/lib/content";
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Lock body scroll when the mobile menu is open.
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
+        scrolled
+          ? "bg-background/70 backdrop-blur-md border-b border-[var(--hairline)]"
+          : "bg-transparent"
+      }`}
+    >
+      <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-4 sm:px-8 md:py-6">
+        <a
+          href="#top"
+          className="group flex flex-col leading-none"
+          aria-label={`${SITE.name} — home`}
+        >
+          <span className="display text-lg font-medium tracking-[0.22em] sm:text-xl">
+            ELEVEN RAYS
+          </span>
+          <span className="text-[0.5rem] tracking-[0.55em] text-muted sm:text-[0.55rem]">
+            PRODUCTIONS
+          </span>
+        </a>
+
+        {/* Desktop links */}
+        <ul className="hidden items-center gap-10 md:flex">
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="group relative text-[0.7rem] uppercase tracking-[0.3em] text-foreground/80 transition-colors hover:text-foreground"
+              >
+                {link.label}
+                <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-accent transition-all duration-500 group-hover:w-full" />
+              </a>
+            </li>
+          ))}
+          <a
+            href="#contact"
+            className="border border-[var(--hairline)] px-5 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-foreground/90 transition-all duration-500 hover:border-accent hover:text-accent"
+          >
+            Enquire
+          </a>
+        </ul>
+
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[6px] md:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+        >
+          <span
+            className={`h-px w-7 bg-foreground transition-all duration-500 ${
+              open ? "translate-y-[3.5px] rotate-45" : ""
+            }`}
+          />
+          <span
+            className={`h-px w-7 bg-foreground transition-all duration-500 ${
+              open ? "-translate-y-[3.5px] -rotate-45" : ""
+            }`}
+          />
+        </button>
+      </nav>
+
+      {/* Mobile fullscreen menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-40 flex flex-col bg-background md:hidden"
+          >
+            <ul className="flex flex-1 flex-col items-center justify-center gap-2">
+              {NAV_LINKS.map((link, i) => (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.08, duration: 0.6 }}
+                >
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="display block py-3 text-5xl font-light tracking-wide"
+                  >
+                    {link.label}
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+            <div className="border-t border-[var(--hairline)] px-6 py-6 text-center">
+              <a
+                href={`mailto:${SITE.email}`}
+                className="text-xs uppercase tracking-[0.3em] text-muted"
+              >
+                {SITE.email}
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
