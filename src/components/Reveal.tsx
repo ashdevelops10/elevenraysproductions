@@ -1,32 +1,26 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
   className?: string;
   delay?: number;
-  /** vertical distance to travel in px */
-  y?: number;
   as?: "div" | "section" | "li" | "span";
 };
 
 /**
- * Scroll-reveal wrapper. Fades and lifts content into view once,
- * with a cinematic ease. Honours reduced-motion preferences.
+ * Scroll-reveal wrapper. Content stays visible by default, then settles
+ * into its final state when it enters the viewport.
  */
 export default function Reveal({
   children,
   className,
   delay = 0,
-  y = 40,
   as = "div",
 }: Props) {
-  const reduce = useReducedMotion();
-
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : y },
     show: {
       opacity: 1,
       y: 0,
@@ -44,7 +38,7 @@ export default function Reveal({
     <MotionTag
       className={className}
       variants={variants}
-      initial="hidden"
+      initial={false}
       whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
     >

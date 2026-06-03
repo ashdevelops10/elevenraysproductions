@@ -1,12 +1,12 @@
-import Image from "next/image";
+import OptimizedImage from "./OptimizedImage";
 import Reveal from "./Reveal";
 import { SERVICES } from "@/lib/content";
 
 export default function Services() {
   return (
     <section id="services" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
-        <div className="mb-16 flex flex-col gap-4 border-b border-[var(--hairline)] pb-10 sm:flex-row sm:items-end sm:justify-between">
+      <div className="mx-auto max-w-400 px-5 sm:px-8">
+        <div className="mb-16 flex flex-col gap-4 border-b border-(--hairline) pb-10 sm:flex-row sm:items-end sm:justify-between">
           <Reveal>
             <h2 className="display text-5xl font-light sm:text-7xl">Services</h2>
           </Reveal>
@@ -21,15 +21,15 @@ export default function Services() {
           {SERVICES.map((service, i) => (
             <Reveal key={service.no} delay={(i % 3) * 0.08} className="group">
               <article>
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <Image
+                <div className="relative aspect-4/5 overflow-hidden bg-white/6">
+                  <OptimizedImage
                     src={service.image}
                     alt={service.title}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="mono object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-[1.06]"
+                    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 33vw"
+                    className="mono object-contain p-2 transition-transform duration-1400 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-[1.02]"
                   />
-                  <span className="absolute left-4 top-4 text-[0.6rem] tracking-[0.4em] text-foreground/70">
+                  <span className="absolute left-4 top-4 text-[0.6rem] tracking-[0.4em] text-foreground">
                     {service.no}
                   </span>
                 </div>

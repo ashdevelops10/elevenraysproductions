@@ -1,54 +1,214 @@
 "use client";
 
-import { useRef } from "react";
-import Image from "next/image";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { COLLECTIONS, type Collection, type ImageAsset } from "@/lib/content";
+import OptimizedImage from "./OptimizedImage";
 import Reveal from "./Reveal";
 
-const spanClass: Record<NonNullable<ImageAsset["span"]>, string> = {
-  tall: "row-span-2 aspect-[3/4]",
-  wide: "col-span-2 aspect-[16/10]",
-  square: "aspect-square",
+const marqueeItemClass: Record<NonNullable<ImageAsset["span"]>, string> = {
+  tall: "aspect-4/5 h-80 sm:h-96 lg:h-[58vh]",
+  wide: "aspect-16/10 h-72 sm:h-88 lg:h-[54vh]",
+  square: "aspect-square h-76 sm:h-92 lg:h-[56vh]",
 };
 
-function ParallaxFigure({
+const MARQUEE_PIXELS_PER_SECOND = 88;
+
+function MarqueeImage({ image }: { image: ImageAsset }) {
+  return (
+    <figure
+      className={`group relative shrink-0 overflow-hidden ${
+        marqueeItemClass[image.span ?? "square"]
+      }`}
+    >
+      <OptimizedImage
+        src={image.src}
+        alt={image.alt}
+        fill
+        sizes="(max-width: 640px) 70vw, (max-width: 1024px) 48vw, 34vw"
+        className="object-contain brightness-[1.12] contrast-[1.04] saturate-[1.34] transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+      />
+      <figcaption className="pointer-events-none absolute bottom-0 left-0 right-0 translate-y-2 bg-linear-to-t from-black/75 to-transparent p-3 text-[0.56rem] uppercase tracking-[0.2em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+        {image.alt}
+      </figcaption>
+    </figure>
+  );
+}
+
+function MarqueeRow({
+  images,
+  reverse = false,
+}: {
+  images: ImageAsset[];
+  reverse?: boolean;
+}) {
+  const reduceMotion = useReducedMotion();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [duration, setDuration] = useState(40);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const track = trackRef.current;
+
+    if (!track || reduceMotion) {
+      return;
+    }
+
+    const updateDuration = () => {
+      const loopDistance = track.scrollWidth / 2;
+      setDuration(Math.max(18, loopDistance / MARQUEE_PIXELS_PER_SECOND));
+    };
+
+    const scheduleUpdate = () => {
+      requestAnimationFrame(updateDuration);
+    };
+
+    const updateTimers = [
+      window.setTimeout(updateDuration, 250),
+      window.setTimeout(updateDuration, 1000),
+    ];
+    const imageElements = Array.from(track.querySelectorAll("img"));
+
+    const observer = new ResizeObserver(updateDuration);
+    observer.observe(track);
+    Array.from(track.children).forEach((child) => {
+      observer.observe(child);
+    });
+    imageElements.forEach((image) => {
+      image.addEventListener("load", scheduleUpdate);
+    });
+
+    updateDuration();
+
+    return () => {
+      observer.disconnect();
+      updateTimers.forEach((timer) => {
+        window.clearTimeout(timer);
+      });
+      imageElements.forEach((image) => {
+        image.removeEventListener("load", scheduleUpdate);
+      });
+    };
+  }, [reduceMotion, images.length]);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      return;
+    }
+
+    const resumeOnScroll = () => {
+      setIsPaused(false);
+    };
+
+    window.addEventListener("scroll", resumeOnScroll, { passive: true });
+    window.addEventListener("wheel", resumeOnScroll, { passive: true });
+    window.addEventListener("touchmove", resumeOnScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", resumeOnScroll);
+      window.removeEventListener("wheel", resumeOnScroll);
+      window.removeEventListener("touchmove", resumeOnScroll);
+    };
+  }, [reduceMotion]);
+
+  if (reduceMotion) {
+    return (
+      <div className="no-scrollbar flex gap-6 overflow-x-auto px-5 pb-6 sm:px-8 lg:px-12">
+        {images.map((image) => (
+          <MarqueeImage key={image.id} image={image} />
+        ))}
+      </div>
+    );
+  }
+
+  // Duplicate the set so the -50% translate loops seamlessly.
+  const loop = [...images, ...images];
+
+  return (
+    <div
+      className="relative overflow-hidden py-2"
+      style={{
+        maskImage:
+          "linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent)",
+        WebkitMaskImage:
+          "linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent)",
+      }}
+    >
+      <div
+        ref={trackRef}
+        className="flex w-max gap-6 lg:gap-10"
+        style={{
+          animationName: "marquee",
+          animationDuration: `${duration}s`,
+          animationTimingFunction: "linear",
+          animationIterationCount: "infinite",
+          animationDirection: reverse ? "reverse" : "normal",
+          animationPlayState: isPaused ? "paused" : "running",
+        }}
+        onMouseEnter={() => {
+          setIsPaused(true);
+        }}
+        onMouseLeave={() => {
+          setIsPaused(false);
+        }}
+        onPointerEnter={() => {
+          setIsPaused(true);
+        }}
+        onPointerLeave={() => {
+          setIsPaused(false);
+        }}
+        onPointerDown={() => {
+          setIsPaused(true);
+        }}
+      >
+        {loop.map((image, index) => (
+          <MarqueeImage key={`${image.id}-${index}`} image={image} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LeadImage({
   image,
-  range,
+  priority,
+  reversed,
 }: {
   image: ImageAsset;
-  range: number;
+  priority: boolean;
+  reversed: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduce ? ["0%", "0%"] : [`${range}%`, `${-range}%`]
-  );
+
+  const y = useTransform(scrollYProgress, [0, 1], ["6%", "-6%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1, 1.05]);
 
   return (
-    <figure
+    <div
       ref={ref}
-      className={`group relative overflow-hidden ${spanClass[image.span ?? "square"]}`}
+      className={`relative aspect-16/10 min-h-80 w-full overflow-hidden sm:min-h-120 lg:min-h-[74vh] ${
+        reversed ? "lg:mr-[5vw]" : "lg:ml-[5vw]"
+      }`}
     >
-      <motion.div style={{ y }} className="absolute inset-[-12%]">
-        <Image
+      <motion.div
+        style={reduceMotion ? undefined : { y, scale }}
+        className="absolute inset-0"
+      >
+        <OptimizedImage
           src={image.src}
           alt={image.alt}
           fill
-          sizes="(max-width: 640px) 100vw, 45vw"
-          className="mono object-cover"
+          priority={priority}
+          sizes="(max-width: 1024px) 92vw, 70vw"
+          className="object-contain brightness-[1.12] contrast-[1.04] saturate-[1.34]"
         />
       </motion.div>
-      <figcaption className="absolute bottom-0 left-0 right-0 translate-y-2 bg-gradient-to-t from-black/70 to-transparent p-4 text-[0.65rem] uppercase tracking-[0.25em] text-foreground/0 opacity-0 transition-all duration-700 group-hover:translate-y-0 group-hover:text-foreground/80 group-hover:opacity-100">
-        {image.alt}
-      </figcaption>
-    </figure>
+    </div>
   );
 }
 
@@ -59,53 +219,83 @@ function CollectionBlock({
   collection: Collection;
   index: number;
 }) {
-  return (
-    <div className="relative border-t border-[var(--hairline)] py-16 sm:py-24">
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-10 px-5 sm:px-8 lg:grid-cols-12">
-        {/* Sticky title rail */}
-        <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-28">
-            <Reveal>
-              <span className="text-[0.6rem] uppercase tracking-[0.5em] text-accent/80">
-                {collection.kicker}
-              </span>
-              <h3 className="display mt-4 text-6xl font-light sm:text-8xl">
-                {collection.title}
-              </h3>
-              <p className="mt-6 max-w-xs text-sm font-light leading-relaxed text-muted">
-                {collection.description}
-              </p>
-            </Reveal>
-          </div>
-        </div>
+  const [leadImage, ...galleryImages] = collection.images;
+  const isReversed = index % 2 === 1;
 
-        {/* Image grid */}
-        <div className="grid auto-rows-auto grid-cols-2 gap-4 sm:gap-6 lg:col-span-8">
-          {collection.images.map((image, i) => (
-            <ParallaxFigure
-              key={image.id}
-              image={image}
-              range={8 + ((i + index) % 3) * 4}
-            />
-          ))}
+  return (
+    <article className="relative py-16 sm:py-24 lg:py-32">
+      {/* Header + lead image: clean split, no overlap, uses the open space */}
+      <div className="mx-auto max-w-450 px-5 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
+          <Reveal
+            className={
+              isReversed ? "lg:order-2 lg:col-span-4" : "lg:order-1 lg:col-span-4"
+            }
+          >
+            <div className="flex items-center gap-4 text-[0.58rem] uppercase tracking-[0.28em] text-white/66 sm:text-[0.62rem]">
+              <span>{collection.kicker}</span>
+              <span className="h-px flex-1 bg-white/22" />
+              <span>{collection.images.length} Frames</span>
+            </div>
+            <h3 className="display mt-5 text-5xl font-light leading-[0.92] text-white sm:text-6xl lg:text-7xl">
+              {collection.title}
+            </h3>
+            <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-white/76 sm:text-base lg:text-lg">
+              {collection.description}
+            </p>
+          </Reveal>
+
+          {leadImage ? (
+            <div
+              className={
+                isReversed ? "lg:order-1 lg:col-span-8" : "lg:order-2 lg:col-span-8"
+              }
+            >
+              <LeadImage
+                image={leadImage}
+                priority={index < 2}
+                reversed={isReversed}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
-    </div>
+
+      {/* Auto-scrolling marquee reel, alternating direction per collection */}
+      {galleryImages.length > 0 ? (
+        <div className="mt-12 sm:mt-16 lg:mt-20">
+          <MarqueeRow images={galleryImages} reverse={isReversed} />
+        </div>
+      ) : null}
+    </article>
   );
 }
 
 export default function Work() {
   return (
-    <section id="work" className="relative">
-      <div className="mx-auto max-w-[1600px] px-5 pt-24 sm:px-8 sm:pt-32">
+    <section id="work" className="relative overflow-hidden bg-[#090908]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent)]" />
+      <div className="relative mx-auto max-w-450 px-5 pt-18 sm:px-8 sm:pt-28 lg:px-12">
         <Reveal>
-          <div className="flex items-end justify-between">
-            <h2 className="display text-5xl font-light sm:text-7xl">
-              Selected Work
-            </h2>
-            <span className="hidden text-[0.6rem] uppercase tracking-[0.4em] text-muted sm:block">
-              2019 — 2026
-            </span>
+          <div className="grid gap-7 py-9 sm:py-14 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-8">
+              <span className="text-[0.58rem] uppercase tracking-[0.34em] text-white/62 sm:text-[0.62rem]">
+                Portfolio Archive
+              </span>
+              <h2 className="display mt-3 text-5xl font-light leading-[0.9] text-white sm:mt-4 sm:text-7xl lg:text-9xl xl:text-[11rem]">
+                Selected Work
+              </h2>
+            </div>
+            <div className="lg:col-span-4 lg:justify-self-end">
+              <p className="max-w-lg text-sm font-light leading-relaxed text-white/70 sm:text-base lg:text-right lg:text-lg">
+                A moving visual archive arranged as oversized scenes and horizontal reels. Built to feel cinematic on every screen without cutting the image.
+              </p>
+              <div className="mt-5 flex gap-3 text-[0.58rem] uppercase tracking-[0.24em] text-white/52 sm:text-[0.62rem] lg:justify-end">
+                <span>2019</span>
+                <span className="h-px w-12 self-center bg-white/25" />
+                <span>2026</span>
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>

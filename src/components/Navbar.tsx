@@ -27,11 +27,11 @@ export default function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
         scrolled
-          ? "bg-background/70 backdrop-blur-md border-b border-[var(--hairline)]"
+          ? "bg-background/70 backdrop-blur-md border-b border-(--hairline)"
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-4 sm:px-8 md:py-6">
+      <nav className="mx-auto flex max-w-400 items-center justify-between px-5 py-4 sm:px-8 md:py-6">
         <a
           href="#top"
           className="group flex flex-col leading-none"
@@ -51,7 +51,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="group relative text-[0.7rem] uppercase tracking-[0.3em] text-foreground/80 transition-colors hover:text-foreground"
+                className="group relative text-[0.7rem] uppercase tracking-[0.3em] text-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
                 <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-accent transition-all duration-500 group-hover:w-full" />
@@ -60,7 +60,7 @@ export default function Navbar() {
           ))}
           <a
             href="#contact"
-            className="border border-[var(--hairline)] px-5 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-foreground/90 transition-all duration-500 hover:border-accent hover:text-accent"
+            className="border border-(--hairline) px-5 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
           >
             Enquire
           </a>
@@ -69,7 +69,7 @@ export default function Navbar() {
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[6px] md:hidden"
+          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
@@ -80,7 +80,7 @@ export default function Navbar() {
           />
           <span
             className={`h-px w-7 bg-foreground transition-all duration-500 ${
-              open ? "-translate-y-[3.5px] -rotate-45" : ""
+              open ? "translate-y-[-3.5px] -rotate-45" : ""
             }`}
           />
         </button>
@@ -114,7 +114,7 @@ export default function Navbar() {
                 </motion.li>
               ))}
             </ul>
-            <div className="border-t border-[var(--hairline)] px-6 py-6 text-center">
+            <div className="border-t border-(--hairline) px-6 py-6 text-center">
               <a
                 href={`mailto:${SITE.email}`}
                 className="text-xs uppercase tracking-[0.3em] text-muted"

@@ -24,6 +24,13 @@
 .DS_Store
 *.pem
 
+# local media copies; production media is served from Vercel Blob
+/Videos/*.mp4
+/Videos/*.MP4
+/public/videos/*.mp4
+/public/videos/*.MP4
+!/public/videos/README.md
+
 # debug
 npm-debug.log*
 yarn-debug.log*
