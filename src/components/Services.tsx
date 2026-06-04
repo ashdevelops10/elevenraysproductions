@@ -1,6 +1,6 @@
 import OptimizedImage from "./OptimizedImage";
 import Reveal from "./Reveal";
-import { SERVICES } from "@/lib/content";
+import { SERVICES, SERVICES_INTRO } from "@/lib/content";
 
 export default function Services() {
   return (
@@ -8,11 +8,13 @@ export default function Services() {
       <div className="mx-auto max-w-400 px-5 sm:px-8">
         <div className="mb-16 flex flex-col gap-4 border-b border-(--hairline) pb-10 sm:flex-row sm:items-end sm:justify-between">
           <Reveal>
-            <h2 className="display text-5xl font-light sm:text-7xl">Services</h2>
+            <h2 className="display text-5xl font-light sm:text-7xl">
+              {SERVICES_INTRO.heading}
+            </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="max-w-sm text-sm font-light leading-relaxed text-muted">
-              A full storytelling studio — concept to final cut, under one roof.
+              {SERVICES_INTRO.subHeading}
             </p>
           </Reveal>
         </div>

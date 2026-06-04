@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
-import { SITE } from "@/lib/content";
+import { CONTACT_CONTENT, SITE } from "@/lib/content";
 import { CONTACT_VIDEO_SOURCES } from "@/lib/media";
 import OptimizedVideo from "./OptimizedVideo";
 
@@ -118,15 +118,15 @@ export default function Contact() {
       <div className="absolute inset-0 bg-black/55" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center drop-shadow-[0_2px_18px_rgba(0,0,0,0.85)]">
-        <Reveal>
-          <span className="text-[0.6rem] uppercase tracking-[0.5em] text-accent">
-            Let’s create something timeless
-          </span>
-        </Reveal>
         <Reveal delay={0.05}>
           <h2 className="display mt-6 text-balance text-5xl font-light leading-[1.05] sm:text-8xl">
-            Tell us your story.
+            {CONTACT_CONTENT.heading}
           </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mx-auto mt-6 max-w-2xl text-balance text-sm font-light leading-relaxed text-foreground sm:text-base">
+            {CONTACT_CONTENT.subText}
+          </p>
         </Reveal>
         <Reveal delay={0.1}>
           <a
@@ -148,7 +148,7 @@ export default function Contact() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your email — join the newsletter"
+              placeholder={CONTACT_CONTENT.inputPlaceholder}
               aria-label="Email address"
               className="flex-1 border-b border-(--hairline) bg-transparent px-1 py-3 text-center text-sm tracking-wide text-foreground placeholder:text-muted focus:border-accent focus:outline-none sm:text-left"
             />
@@ -156,12 +156,12 @@ export default function Contact() {
               type="submit"
               className="border border-(--hairline) px-7 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
             >
-              {sent ? "Thank you" : "Subscribe"}
+              {sent ? "Thank you" : CONTACT_CONTENT.cta}
             </button>
           </form>
         </Reveal>
         <p className="mt-4 text-[0.6rem] uppercase tracking-[0.3em] text-muted">
-          We respect your privacy.
+          {CONTACT_CONTENT.newsletter}
         </p>
       </div>
     </section>

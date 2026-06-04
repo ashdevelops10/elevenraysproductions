@@ -5,15 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { NAV_LINKS, SITE } from "@/lib/content";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Lock body scroll when the mobile menu is open.
   useEffect(() => {
@@ -25,11 +17,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
-        scrolled
-          ? "bg-background/70 backdrop-blur-md border-b border-(--hairline)"
-          : "bg-transparent"
-      }`}
+      className="relative z-50 bg-transparent"
     >
       <nav className="mx-auto flex max-w-400 items-center justify-between px-5 py-4 sm:px-8 md:py-6">
         <a
@@ -62,7 +50,7 @@ export default function Navbar() {
             href="#contact"
             className="border border-(--hairline) px-5 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
           >
-            Enquire
+            Book a Shoot
           </a>
         </ul>
 

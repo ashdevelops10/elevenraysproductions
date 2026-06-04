@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { COLLECTIONS, type Collection, type ImageAsset } from "@/lib/content";
+import { COLLECTIONS, WORK_INTRO, type Collection, type ImageAsset } from "@/lib/content";
 import OptimizedImage from "./OptimizedImage";
 import Reveal from "./Reveal";
 
@@ -221,6 +221,8 @@ function CollectionBlock({
 }) {
   const [leadImage, ...galleryImages] = collection.images;
   const isReversed = index % 2 === 1;
+  const additionalRows = collection.additionalRows ?? [];
+  const frameCount = collection.images.length + additionalRows.flat().length;
 
   return (
     <article className="relative py-16 sm:py-24 lg:py-32">
@@ -235,7 +237,7 @@ function CollectionBlock({
             <div className="flex items-center gap-4 text-[0.58rem] uppercase tracking-[0.28em] text-white/66 sm:text-[0.62rem]">
               <span>{collection.kicker}</span>
               <span className="h-px flex-1 bg-white/22" />
-              <span>{collection.images.length} Frames</span>
+              <span>{frameCount} Frames</span>
             </div>
             <h3 className="display mt-5 text-5xl font-light leading-[0.92] text-white sm:text-6xl lg:text-7xl">
               {collection.title}
@@ -267,6 +269,18 @@ function CollectionBlock({
           <MarqueeRow images={galleryImages} reverse={isReversed} />
         </div>
       ) : null}
+
+      {additionalRows.map((rowImages, rowIndex) => (
+        <div
+          key={`${collection.id}-row-${rowIndex}`}
+          className="mt-8 sm:mt-10 lg:mt-12"
+        >
+          <MarqueeRow
+            images={rowImages}
+            reverse={rowIndex % 2 === 0 ? !isReversed : isReversed}
+          />
+        </div>
+      ))}
     </article>
   );
 }
@@ -279,21 +293,18 @@ export default function Work() {
         <Reveal>
           <div className="grid gap-7 py-9 sm:py-14 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
-              <span className="text-[0.58rem] uppercase tracking-[0.34em] text-white/62 sm:text-[0.62rem]">
-                Portfolio Archive
-              </span>
               <h2 className="display mt-3 text-5xl font-light leading-[0.9] text-white sm:mt-4 sm:text-7xl lg:text-9xl xl:text-[11rem]">
-                Selected Work
+                {WORK_INTRO.heading}
               </h2>
             </div>
             <div className="lg:col-span-4 lg:justify-self-end">
               <p className="max-w-lg text-sm font-light leading-relaxed text-white/70 sm:text-base lg:text-right lg:text-lg">
-                A moving visual archive arranged as oversized scenes and horizontal reels. Built to feel cinematic on every screen without cutting the image.
+                {WORK_INTRO.subHeading}
               </p>
               <div className="mt-5 flex gap-3 text-[0.58rem] uppercase tracking-[0.24em] text-white/52 sm:text-[0.62rem] lg:justify-end">
-                <span>2019</span>
+                <span>{WORK_INTRO.metaStart}</span>
                 <span className="h-px w-12 self-center bg-white/25" />
-                <span>2026</span>
+                <span>{WORK_INTRO.metaEnd}</span>
               </div>
             </div>
           </div>

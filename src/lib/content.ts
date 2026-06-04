@@ -5,11 +5,53 @@ export type ImageAsset = {
   id: string;
   src: string;
   alt: string;
-  /** layout span hint for the editorial grid */
   span?: "tall" | "wide" | "square";
 };
 
 const portfolio = (file: string) => `/images/portfolio/${file}`;
+
+export const HERO = {
+  tagline: "Every ray of light tells a story.",
+  headline: "Eleven Rays Productions",
+  subline:
+    "We photograph spaces, food, objects and people — one frame at a time, with the patience light demands.",
+  cta: "View the Work",
+} as const;
+
+export const PHILOSOPHY = {
+  eyebrow: "Every frame, crafted with intention.",
+  heading: "We don't chase the light. We wait for it.",
+  paragraphs: [
+    "Photography is a study in patience. The right ray of light on the right surface — that is not luck. It is preparation, timing and a refusal to settle for less.",
+    "We bring that discipline to every project, from a single product shot to a full interior campaign.",
+  ],
+} as const;
+
+export const SERVICES_INTRO = {
+  heading: "What we photograph.",
+  subHeading: "Four disciplines. One visual language.",
+} as const;
+
+export const WORK_INTRO = {
+  heading: "Selected Work",
+  subHeading: "An archive of frames — shot with purpose, arranged to be seen.",
+  metaStart: "Shot with purpose",
+  metaEnd: "Arranged to be seen",
+} as const;
+
+export const CONTACT_CONTENT = {
+  heading: "Let's find the right light for your work.",
+  subText: "Tell us what you're building. We'll tell you how it should look.",
+  cta: "Get in Touch",
+  inputPlaceholder: "hello@elevenraysproductions.com",
+  newsletter: "New work, when it's ready. No noise.",
+} as const;
+
+export const FOOTER_CONTENT = {
+  tagline: "Photography by Eleven Rays Productions",
+  copyright: "© 2026 Eleven Rays Productions. All rights reserved.",
+  location: "A PART OF ELEVEN RAYS",
+} as const;
 
 export const NAV_LINKS = [
   { label: "Work", href: "#work" },
@@ -21,45 +63,31 @@ export const NAV_LINKS = [
 export const SERVICES = [
   {
     no: "01",
-    title: "Cinematography",
+    title: "Property",
     blurb:
-      "Motion shot like the golden age — deliberate light, deep contrast, every frame composed to last.",
-    image: portfolio("bird-flight.webp"),
+      "Residential and commercial spaces photographed for scale, light and atmosphere. Every room is framed as a scene.",
+    image: portfolio("property-commercial-lobby-long-view.webp"),
   },
   {
     no: "02",
-    title: "Photography",
+    title: "Editorial",
     blurb:
-      "Stills with the weight of a portrait sitting. Texture, grain and presence over polish.",
-    image: portfolio("editorial-red-coat.webp"),
+      "Fashion and portrait work with movement, silhouette and character. Strong light, stronger story.",
+    image: portfolio("editorial-gallery-wall.webp"),
   },
   {
     no: "03",
-    title: "Art Direction",
+    title: "Food & Culinary",
     blurb:
-      "Worlds built from nothing — a concept, a mood, a set dressed down to the last prop.",
-    image: portfolio("pizza-craft-tableau.webp"),
+      "Dishes, ingredients and dining stories styled for appetite and texture. Built to make people hungry.",
+    image: portfolio("pizza-rustic-overhead.webp"),
   },
   {
     no: "04",
-    title: "Creative Direction",
+    title: "Product & Still Life",
     blurb:
-      "The throughline of a brand. We hold the vision from first idea to final cut.",
-    image: portfolio("cookie-picnic-brand-story.webp"),
-  },
-  {
-    no: "05",
-    title: "Set Design & Styling",
-    blurb:
-      "Atmosphere is everything. We compose the room before the camera ever rolls.",
-    image: portfolio("red-dessert-retro-set.webp"),
-  },
-  {
-    no: "06",
-    title: "Content Creation",
-    blurb:
-      "Stories cut for every screen — long-form drama to the scroll-stopping short.",
-    image: portfolio("matcha-pour-cafe.webp"),
+      "Objects, brand compositions and cafe scenes. Detail-led work that earns the second look.",
+    image: portfolio("product-story-red.webp"),
   },
 ] as const;
 
@@ -69,15 +97,16 @@ export type Collection = {
   title: string;
   description: string;
   images: ImageAsset[];
+  additionalRows?: ImageAsset[][];
 };
 
 export const COLLECTIONS: Collection[] = [
   {
-    id: "residential-property",
+    id: "property",
     kicker: "Property 01",
-    title: "Residential Property",
+    title: "Property",
     description:
-      "A warm apartment story arranged room by room: bedrooms, kitchen, dining and lounge details.",
+      "Spaces before they are lived in. Light caught at its most honest hour.",
     images: [
       { id: "rp1", src: portfolio("property-apartment-bedroom-wide.webp"), alt: "Wide view of a warm apartment bedroom", span: "wide" },
       { id: "rp2", src: portfolio("property-apartment-bedroom-tv.webp"), alt: "Apartment bedroom with television and vanity wall", span: "wide" },
@@ -94,45 +123,27 @@ export const COLLECTIONS: Collection[] = [
       { id: "rp13", src: portfolio("property-apartment-living-blue-detail.webp"), alt: "Blue sofa lounge detail with marble table", span: "wide" },
       { id: "rp14", src: portfolio("property-apartment-dining-marble.webp"), alt: "Marble dining table in the apartment", span: "wide" },
     ],
-  },
-  {
-    id: "commercial-property",
-    kicker: "Property 02",
-    title: "Commercial Property",
-    description:
-      "Lobby, reception, office and terrace spaces photographed for scale, finish and atmosphere.",
-    images: [
-      { id: "cp1", src: portfolio("property-commercial-lobby-marble.webp"), alt: "Marble commercial lobby with a sculptural wall", span: "wide" },
-      { id: "cp2", src: portfolio("property-commercial-reception-art-wall.webp"), alt: "Reception desk and large textured art wall", span: "wide" },
-      { id: "cp3", src: portfolio("property-commercial-reception-lounge.webp"), alt: "Bright reception lounge with chandeliers", span: "wide" },
-      { id: "cp4", src: portfolio("property-commercial-terrace-dining.webp"), alt: "Outdoor terrace dining area at night", span: "wide" },
-      { id: "cp5", src: portfolio("property-commercial-lounge-meeting.webp"), alt: "Commercial lounge and meeting table", span: "wide" },
-      { id: "cp6", src: portfolio("property-commercial-boardroom-bright.webp"), alt: "Bright commercial boardroom with glass partitions", span: "wide" },
-      { id: "cp7", src: portfolio("property-commercial-executive-office.webp"), alt: "Executive office with desk and patterned wall light", span: "wide" },
-      { id: "cp8", src: portfolio("property-commercial-turnstile-entry.webp"), alt: "Turnstile entry corridor in a commercial lobby", span: "wide" },
-      { id: "cp9", src: portfolio("property-commercial-lobby-corridor.webp"), alt: "Long commercial lobby corridor with seating", span: "wide" },
-      { id: "cp10", src: portfolio("property-commercial-lobby-long-view.webp"), alt: "Long view through the warm commercial lobby", span: "wide" },
-    ],
-  },
-  {
-    id: "motion-nature",
-    kicker: "Reel 03",
-    title: "Motion & Nature",
-    description:
-      "Birds, texture and atmosphere framed with the restraint of a moving image.",
-    images: [
-      { id: "mn2", src: portfolio("shore-birds-light.webp"), alt: "Birds crossing a hazy shoreline", span: "wide" },
-      { id: "mn1", src: portfolio("bird-portrait.webp"), alt: "Perched bird study against a clean backdrop", span: "tall" },
-      { id: "mn3", src: portfolio("shore-birds-shadow.webp"), alt: "Muted shoreline birds in a dark frame", span: "wide" },
-      { id: "mn4", src: portfolio("feather-texture.webp"), alt: "Close textured feather detail", span: "square" },
+    additionalRows: [
+      [
+        { id: "property-office-1", src: portfolio("property-commercial-lobby-marble.webp"), alt: "Marble commercial lobby with a sculptural wall", span: "wide" },
+        { id: "property-office-2", src: portfolio("property-commercial-reception-art-wall.webp"), alt: "Reception desk and large textured art wall", span: "wide" },
+        { id: "property-office-3", src: portfolio("property-commercial-reception-lounge.webp"), alt: "Bright reception lounge with chandeliers", span: "wide" },
+        { id: "property-office-4", src: portfolio("property-commercial-terrace-dining.webp"), alt: "Outdoor terrace dining area at night", span: "wide" },
+        { id: "property-office-5", src: portfolio("property-commercial-lounge-meeting.webp"), alt: "Commercial lounge and meeting table", span: "wide" },
+        { id: "property-office-6", src: portfolio("property-commercial-boardroom-bright.webp"), alt: "Bright commercial boardroom with glass partitions", span: "wide" },
+        { id: "property-office-7", src: portfolio("property-commercial-executive-office.webp"), alt: "Executive office with desk and patterned wall light", span: "wide" },
+        { id: "property-office-8", src: portfolio("property-commercial-turnstile-entry.webp"), alt: "Turnstile entry corridor in a commercial lobby", span: "wide" },
+        { id: "property-office-9", src: portfolio("property-commercial-lobby-corridor.webp"), alt: "Long commercial lobby corridor with seating", span: "wide" },
+        { id: "property-office-10", src: portfolio("property-commercial-lobby-long-view.webp"), alt: "Long view through the warm commercial lobby", span: "wide" },
+      ],
     ],
   },
   {
     id: "editorial",
-    kicker: "Reel 04",
+    kicker: "Editorial 02",
     title: "Editorial",
     description:
-      "Fashion-led frames with movement, silhouette and strong character.",
+      "Silhouette, shadow and the in-between moments that make a story.",
     images: [
       { id: "ed5", src: portfolio("editorial-red-train.webp"), alt: "Red editorial train arranged across the floor", span: "wide" },
       { id: "ed1", src: portfolio("editorial-dress-motion.webp"), alt: "Editorial dress movement on a pale set", span: "tall" },
@@ -143,11 +154,11 @@ export const COLLECTIONS: Collection[] = [
     ],
   },
   {
-    id: "culinary",
-    kicker: "Reel 05",
-    title: "Culinary",
+    id: "food",
+    kicker: "Food & Culinary 03",
+    title: "Food & Culinary",
     description:
-      "Food stories styled with appetite, texture and a strong sense of place.",
+      "Every dish is a set. Every ingredient, a prop. Every plate, a frame.",
     images: [
       { id: "cu4", src: portfolio("pizza-rustic-overhead.webp"), alt: "Rustic overhead pizza with ingredients", span: "wide" },
       { id: "cu1", src: portfolio("pesto-pasta-plate.webp"), alt: "Pesto pasta plated on a white dish", span: "tall" },
@@ -162,50 +173,39 @@ export const COLLECTIONS: Collection[] = [
     ],
   },
   {
-    id: "cafe-product",
-    kicker: "Reel 06",
-    title: "Cafe & Product",
-    description:
-      "Cafe scenes, dessert worlds and brand-led product compositions.",
+    id: "product-still-life",
+    kicker: "Product & Still Life 04",
+    title: "Product & Still Life",
+    description: "Objects that speak when they are allowed to be quiet.",
     images: [
-      { id: "cf1", src: portfolio("coffee-beans-flatlay.webp"), alt: "Coffee cup and beans flat lay", span: "wide" },
-      { id: "cf2", src: portfolio("layered-iced-coffee.webp"), alt: "Layered iced coffee against brick", span: "wide" },
-      { id: "cf3", src: portfolio("yellow-lemonade-still-life.webp"), alt: "Lemonade still life on a yellow set", span: "wide" },
-      { id: "cf4", src: portfolio("single-serve-platter.webp"), alt: "Single serve platter on a smoky set", span: "square" },
-      { id: "cf5", src: portfolio("pastry-writing-desk.webp"), alt: "Pastry and writing desk flat lay", span: "wide" },
-      { id: "cf6", src: portfolio("red-dessert-retro-set.webp"), alt: "Red dessert on a retro tabletop set", span: "tall" },
-      { id: "cf7", src: portfolio("baking-table-flatlay.webp"), alt: "Baking table flat lay with cookies and twine", span: "wide" },
-      { id: "cf8", src: portfolio("cookies-window-reading.webp"), alt: "Cookies by a window with an open book", span: "wide" },
-      { id: "cf9", src: portfolio("cookies-telephone-window.webp"), alt: "Cookies and vintage telephone by a bright window", span: "wide" },
-    ],
-  },
-  {
-    id: "object-studies",
-    kicker: "Reel 07",
-    title: "Still Life",
-    description:
-      "Objects, tableaus and tactile details composed for atmosphere.",
-    images: [
-      { id: "os3", src: portfolio("still-life-table.webp"), alt: "Overhead styled tabletop still life", span: "wide" },
-      { id: "os1", src: portfolio("guitar-study-01.webp"), alt: "Minimal guitar study on black", span: "wide" },
-      { id: "os2", src: portfolio("guitar-study-02.webp"), alt: "Suspended guitar study on black", span: "wide" },
-      { id: "os4", src: portfolio("product-story-red.webp"), alt: "Product still life with red accents", span: "tall" },
+      { id: "ps1", src: portfolio("still-life-table.webp"), alt: "Overhead styled tabletop still life", span: "wide" },
+      { id: "ps2", src: portfolio("product-story-red.webp"), alt: "Product still life with red accents", span: "tall" },
+      { id: "ps3", src: portfolio("coffee-beans-flatlay.webp"), alt: "Coffee cup and beans flat lay", span: "wide" },
+      { id: "ps4", src: portfolio("single-serve-platter.webp"), alt: "Single serve platter on a smoky set", span: "square" },
+      { id: "ps5", src: portfolio("layered-iced-coffee.webp"), alt: "Layered iced coffee against brick", span: "wide" },
+      { id: "ps6", src: portfolio("yellow-lemonade-still-life.webp"), alt: "Lemonade still life on a yellow set", span: "wide" },
+      { id: "ps7", src: portfolio("baking-table-flatlay.webp"), alt: "Baking table flat lay with cookies and twine", span: "wide" },
+      { id: "ps8", src: portfolio("cookies-window-reading.webp"), alt: "Cookies by a window with an open book", span: "wide" },
+      { id: "ps9", src: portfolio("cookies-telephone-window.webp"), alt: "Cookies and vintage telephone by a bright window", span: "wide" },
+      { id: "ps10", src: portfolio("pastry-writing-desk.webp"), alt: "Pastry and writing desk flat lay", span: "wide" },
     ],
   },
 ];
 
 export const STUDIO = {
+  label: "Studio Intro",
+  title: "Light is the only ingredient that matters.",
   image: {
     src: portfolio("studio-texture-dark.webp"),
     alt: "Dark studio texture from production footage",
   },
   paragraphs: [
-    "Eleven Rays Productions is an independent storytelling studio built on an obsession with light, restraint and the long-held frame.",
-    "We build worlds and tell original stories. Every project begins with a single idea — a concept developed from nothing — and is carried through cinematography, photography, art direction and set design.",
-    "Our work is monochrome at heart: timeless, dramatic, made with the patience of old Hollywood and the speed of the modern screen.",
+    "A part of Eleven Rays. Built on the same obsession with light.",
+    "We work across property, editorial, food and product. Every category, the same standard: composed with intention, lit with restraint, and finished to last.",
   ],
-  location: "Based in Mumbai. Available worldwide.",
-};
+  location:
+    "A part of Eleven Rays Productions. Built on the same obsession with light.",
+} as const;
 
 export const SITE = {
   name: "Eleven Rays Productions",
@@ -213,4 +213,4 @@ export const SITE = {
   email: "hello@elevenraysproductions.com",
   instagram: "https://instagram.com",
   linkedin: "https://linkedin.com",
-};
+} as const;

@@ -25,12 +25,12 @@ export default function Studio() {
         <div className="order-1 lg:order-2">
           <Reveal>
             <span className="text-[0.6rem] uppercase tracking-[0.5em] text-accent">
-              The Studio
+              {STUDIO.label}
             </span>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="display mt-5 text-4xl font-light leading-tight sm:text-6xl">
-              Made with the patience of old Hollywood.
+              {STUDIO.title}
             </h2>
           </Reveal>
           <div className="mt-8 space-y-6">
@@ -42,11 +42,6 @@ export default function Studio() {
               </Reveal>
             ))}
           </div>
-          <Reveal delay={0.3}>
-            <p className="mt-10 text-[0.65rem] uppercase tracking-[0.35em] text-muted">
-              {STUDIO.location}
-            </p>
-          </Reveal>
         </div>
       </div>
     </section>

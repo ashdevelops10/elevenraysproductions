@@ -2,9 +2,42 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { SITE } from "@/lib/content";
+import { HERO, SITE } from "@/lib/content";
 import { HERO_VIDEO_POSTER, HERO_VIDEO_SOURCES } from "@/lib/media";
 import OptimizedVideo from "./OptimizedVideo";
+
+const HERO_TITLE_LINES = ["Eleven Rays", "Productions"];
+
+function AnimatedHeroTitle() {
+  return (
+    <h1
+      aria-label={HERO.headline}
+      className="display overflow-hidden text-balance text-[15vw] font-light leading-[0.92] tracking-tight text-foreground sm:text-[12vw] md:text-[9rem] lg:text-[11rem]"
+    >
+      <span aria-hidden="true">
+        {HERO_TITLE_LINES.map((line, lineIndex) => (
+          <span key={line} className="block whitespace-nowrap">
+            {Array.from(line).map((character, characterIndex) => (
+              <motion.span
+                key={`${line}-${characterIndex}`}
+                className="inline-block"
+                initial={{ opacity: 0, y: 34, filter: "blur(12px)", scale: 1.08 }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+                transition={{
+                  delay: 0.72 + lineIndex * 0.46 + characterIndex * 0.055,
+                  duration: 0.72,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {character === " " ? "\u00A0" : character}
+              </motion.span>
+            ))}
+          </span>
+        ))}
+      </span>
+    </h1>
+  );
+}
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -51,17 +84,21 @@ export default function Hero() {
         className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 text-center drop-shadow-[0_2px_22px_rgba(0,0,0,0.85)]"
       >
         <p className="mb-6 text-[0.6rem] uppercase tracking-[0.5em] text-foreground sm:text-xs">
-          A Cinematic Storytelling Studio
+          {HERO.tagline}
         </p>
 
-        <h1 className="display text-balance text-[15vw] font-light leading-[0.92] tracking-tight text-foreground sm:text-[12vw] md:text-[9rem] lg:text-[11rem]">
-          <span className="block">Eleven Rays</span>
-        </h1>
+        <AnimatedHeroTitle />
 
         <p className="mt-7 max-w-md text-balance text-sm font-light leading-relaxed text-foreground sm:text-base">
-          We frame light, shadow and story — timeless work with the drama of old
-          Hollywood and the craft of the modern screen.
+          {HERO.subline}
         </p>
+
+        <a
+          href="#work"
+          className="mt-10 border border-(--hairline) px-6 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
+        >
+          {HERO.cta}
+        </a>
       </motion.div>
 
       <span className="sr-only">{SITE.name}</span>
