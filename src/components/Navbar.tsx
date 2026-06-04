@@ -20,7 +20,7 @@ export default function Navbar() {
     <header
       className="relative z-50 bg-transparent"
     >
-      <nav className="mx-auto grid max-w-400 items-center px-5 py-3 sm:px-8 md:grid-cols-[auto_1fr_auto] md:py-4">
+      <nav className="mx-auto flex max-w-400 items-center justify-between px-5 py-3 sm:px-8 md:grid md:grid-cols-[auto_1fr_auto] md:py-4">
         <a
           href="#top"
           className="group block"
@@ -64,7 +64,7 @@ export default function Navbar() {
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="relative z-50 col-start-2 flex h-10 w-10 flex-col items-center justify-self-end gap-1.5 md:hidden"
+          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >

@@ -40,10 +40,10 @@ function MarqueeImage({
           sizes="(max-width: 640px) 70vw, (max-width: 1024px) 48vw, 34vw"
           className="object-contain brightness-[1.12] contrast-[1.04] saturate-[1.34] transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
-        <figcaption className="pointer-events-none absolute bottom-0 left-0 right-0 translate-y-2 bg-linear-to-t from-black/75 to-transparent p-3 text-[0.56rem] uppercase tracking-[0.2em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-          {image.alt}
-        </figcaption>
       </button>
+      <figcaption className="pointer-events-none absolute bottom-0 left-0 right-0 translate-y-2 bg-linear-to-t from-black/75 to-transparent p-3 text-[0.56rem] uppercase tracking-[0.2em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+        {image.alt}
+      </figcaption>
     </figure>
   );
 }
