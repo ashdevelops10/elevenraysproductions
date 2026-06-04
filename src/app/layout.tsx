@@ -20,6 +20,11 @@ const sans = Jost({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://elevenraysproductions.com"),
+  icons: {
+    icon: "/faviconfinal.png",
+    shortcut: "/faviconfinal.png",
+    apple: "/faviconfinal.png",
+  },
   title: {
     default: "Eleven Rays Productions — Creative Production Studio",
     template: "%s · Eleven Rays Productions",

@@ -21,7 +21,7 @@ export default function Services() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
           {SERVICES.map((service, i) => (
             <Reveal key={service.no} delay={i * 0.08} className="group h-full">
-              <article className="relative flex h-full flex-col overflow-hidden border border-(--hairline) bg-white/2.5 px-6 py-6 transition-all duration-700 hover:border-white/70 hover:bg-white/5.5 sm:px-8 sm:py-8 lg:px-10 lg:py-10">
+              <article className="service-panel relative flex h-full flex-col overflow-hidden border border-(--hairline) bg-white/2.5 transition-all duration-700 hover:border-white/70 hover:bg-white/5.5">
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/70 to-transparent opacity-40" />
                 <div className="flex items-start justify-between gap-6">
                   <span className="text-[0.65rem] uppercase tracking-[0.45em] text-muted">
@@ -30,7 +30,7 @@ export default function Services() {
                   <span className="h-px flex-1 translate-y-2 bg-white/18 transition-colors duration-700 group-hover:bg-white/40" />
                 </div>
 
-                <div className="mt-10 grid gap-8 sm:mt-12 sm:gap-10">
+                <div className="mt-10 flex flex-1 flex-col gap-10 sm:mt-12">
                   <div>
                     <h3 className="display max-w-xl text-4xl font-light leading-[0.98] sm:text-5xl lg:text-6xl xl:text-7xl">
                       {service.title}
@@ -40,7 +40,7 @@ export default function Services() {
                     </p>
                   </div>
 
-                  <ul className="grid gap-3 border-t border-(--hairline) pt-5 sm:pt-6">
+                  <ul className="mt-auto grid gap-3 border-t border-(--hairline) pt-6">
                     {service.inclusions.map((inclusion) => (
                       <li
                         key={inclusion}

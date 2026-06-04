@@ -113,6 +113,10 @@ body {
   font-family: var(--font-display), Georgia, serif;
 }
 
+.service-panel {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
 /* Color-preserving media treatment */
 .color-media,
 .mono {

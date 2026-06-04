@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { NAV_LINKS, SITE } from "@/lib/content";
+import OptimizedImage from "./OptimizedImage";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -22,14 +23,18 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-400 items-center justify-between px-5 py-4 sm:px-8 md:py-6">
         <a
           href="#top"
-          className="group flex flex-col leading-none"
+          className="group block"
           aria-label={`${SITE.name} — home`}
         >
-          <span className="display text-lg font-medium tracking-[0.22em] sm:text-xl">
-            ELEVEN RAYS
-          </span>
-          <span className="text-[0.5rem] tracking-[0.55em] text-muted sm:text-[0.55rem]">
-            PRODUCTIONS
+          <span className="relative block h-10 w-32 sm:h-12 sm:w-40">
+            <OptimizedImage
+              src="/logo2whitepng.png"
+              alt={SITE.name}
+              fill
+              priority
+              sizes="(max-width: 640px) 128px, 160px"
+              className="object-contain object-left"
+            />
           </span>
         </a>
 

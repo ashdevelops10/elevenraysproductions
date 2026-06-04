@@ -93,12 +93,20 @@ export default function Hero() {
           {HERO.subline}
         </p>
 
-        <a
-          href="#work"
-          className="mt-10 border border-(--hairline) px-6 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
-        >
-          {HERO.cta}
-        </a>
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a
+            href="#work"
+            className="border border-(--hairline) px-6 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
+          >
+            {HERO.cta}
+          </a>
+          <a
+            href="#contact"
+            className="bg-foreground px-6 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-background transition-all duration-500 hover:bg-accent hover:text-background"
+          >
+            {HERO.secondaryCta}
+          </a>
+        </div>
       </motion.div>
 
       <span className="sr-only">{SITE.name}</span>

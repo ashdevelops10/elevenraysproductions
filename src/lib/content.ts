@@ -16,6 +16,7 @@ export const HERO = {
   subline:
     "Every surface has a secret. we find it, frame it, and let it speak.",
   cta: "View the Work",
+  secondaryCta: "Book a Shoot",
 } as const;
 
 export const PHILOSOPHY = {
@@ -41,9 +42,10 @@ export const WORK_INTRO = {
 export const CONTACT_CONTENT = {
   heading: "Let's give your brand a direction.",
   subText: "Tell us what you're building. We'll shape the content, visuals and social presence around it.",
-  cta: "Get in Touch",
-  inputPlaceholder: "hello@elevenraysproductions.com",
-  newsletter: "New work, when it's ready. No noise.",
+  cta: "Chat on WhatsApp",
+  whatsappLabel: "+91 8219641613",
+  whatsappUrl: "https://wa.me/918219641613",
+  newsletter: "Available on WhatsApp for project inquiries.",
 } as const;
 
 export const FOOTER_CONTENT = {
@@ -93,7 +95,6 @@ export const COLLECTIONS: Collection[] = [
     description:
       "Spaces, surfaces and details arranged into a clear visual story.",
     images: [
-      { id: "rp0", src: portfolio("property-commercial-lobby-long-view.webp"), alt: "Long view through the warm commercial lobby", span: "wide" },
       { id: "rp1", src: portfolio("property-apartment-bedroom-wide.webp"), alt: "Wide view of a warm apartment bedroom", span: "wide" },
       { id: "rp2", src: portfolio("property-apartment-bedroom-tv.webp"), alt: "Apartment bedroom with television and vanity wall", span: "wide" },
       { id: "rp3", src: portfolio("property-apartment-vanity-wall.webp"), alt: "Vanity wall and media unit in the bedroom", span: "wide" },
@@ -120,6 +121,7 @@ export const COLLECTIONS: Collection[] = [
         { id: "property-office-7", src: portfolio("property-commercial-executive-office.webp"), alt: "Executive office with desk and patterned wall light", span: "wide" },
         { id: "property-office-8", src: portfolio("property-commercial-turnstile-entry.webp"), alt: "Turnstile entry corridor in a commercial lobby", span: "wide" },
         { id: "property-office-9", src: portfolio("property-commercial-lobby-corridor.webp"), alt: "Long commercial lobby corridor with seating", span: "wide" },
+        { id: "property-office-10", src: portfolio("property-commercial-lobby-long-view.webp"), alt: "Long view through the warm commercial lobby", span: "wide" },
       ],
     ],
   },

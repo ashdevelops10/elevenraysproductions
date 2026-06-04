@@ -1,16 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Reveal from "./Reveal";
-import { CONTACT_CONTENT, SITE } from "@/lib/content";
+import { CONTACT_CONTENT } from "@/lib/content";
 import { CONTACT_VIDEO_SOURCES } from "@/lib/media";
 import OptimizedVideo from "./OptimizedVideo";
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -77,14 +75,6 @@ export default function Contact() {
     };
   }, []);
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    // Wire this to your provider (Mailchimp, Resend, etc.) when ready.
-    setSent(true);
-    setEmail("");
-  };
-
   return (
     <section
       ref={sectionRef}
@@ -112,37 +102,15 @@ export default function Contact() {
             {CONTACT_CONTENT.subText}
           </p>
         </Reveal>
-        <Reveal delay={0.1}>
-          <a
-            href={`mailto:${SITE.email}`}
-            className="group mt-10 inline-block text-lg font-light tracking-wide text-foreground transition-colors hover:text-accent sm:text-2xl"
-          >
-            {SITE.email}
-            <span className="mx-auto mt-1 block h-px w-0 bg-accent transition-all duration-500 group-hover:w-full" />
-          </a>
-        </Reveal>
-
         <Reveal delay={0.15}>
-          <form
-            onSubmit={onSubmit}
-            className="mx-auto mt-16 flex max-w-md flex-col gap-4 sm:flex-row"
+          <a
+            href={CONTACT_CONTENT.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mx-auto mt-16 inline-flex border border-(--hairline) px-7 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
           >
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={CONTACT_CONTENT.inputPlaceholder}
-              aria-label="Email address"
-              className="flex-1 border-b border-(--hairline) bg-transparent px-1 py-3 text-center text-sm tracking-wide text-foreground placeholder:text-muted focus:border-accent focus:outline-none sm:text-left"
-            />
-            <button
-              type="submit"
-              className="border border-(--hairline) px-7 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
-            >
-              {sent ? "Thank you" : CONTACT_CONTENT.cta}
-            </button>
-          </form>
+            {CONTACT_CONTENT.cta}
+          </a>
         </Reveal>
         <p className="mt-4 text-[0.6rem] uppercase tracking-[0.3em] text-muted">
           {CONTACT_CONTENT.newsletter}
