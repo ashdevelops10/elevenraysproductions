@@ -177,14 +177,15 @@ export const COLLECTIONS: Collection[] = [
 
 export const STUDIO = {
   label: "Studio Intro",
-  title: "A fixed point. A clear direction. Content that keeps moving.",
+  title: "We don't add light. We reveal what was always there.",
   image: {
     src: portfolio("studio-texture-dark.webp"),
     alt: "Dark studio texture from production footage",
   },
   paragraphs: [
-    "Eleven Rays Productions is a creative studio for brands that need more than isolated visuals. We shape social media management, content creation and production into one connected visual direction.",
-    "From reels and photoshoots to drone shoots and campaign assets, every project begins from one clear point and extends outward with consistency.",
+    "Eleven Rays Productions refuses to settle for the obvious frame. We shoot spaces that breathe, food that makes you reach for your phone, products that stop a scroll, and people that make you look twice.",
+    "Property, editorial, food, product — four worlds, one uncompromising eye.",
+    "This is our craft. We take it personally — because we believe you should too.",
   ],
   location:
     "A part of Eleven Rays.",

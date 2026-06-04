@@ -20,7 +20,7 @@ export default function Navbar() {
     <header
       className="relative z-50 bg-transparent"
     >
-      <nav className="mx-auto flex max-w-400 items-center justify-between px-5 py-4 sm:px-8 md:py-6">
+      <nav className="mx-auto grid max-w-400 items-center px-5 py-4 sm:px-8 md:grid-cols-[auto_1fr_auto] md:py-6">
         <a
           href="#top"
           className="group block"
@@ -38,8 +38,8 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Desktop links */}
-        <ul className="hidden items-center gap-10 md:flex">
+        {/* Desktop links — centered */}
+        <ul className="hidden items-center justify-center gap-10 md:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
@@ -51,18 +51,20 @@ export default function Navbar() {
               </a>
             </li>
           ))}
-          <a
-            href="#contact"
-            className="border border-(--hairline) px-5 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
-          >
-            Book a Shoot
-          </a>
         </ul>
+
+        {/* Desktop CTA — right */}
+        <a
+          href="#contact"
+          className="hidden border border-(--hairline) justify-self-end px-5 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent md:block"
+        >
+          Book a Shoot
+        </a>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="relative z-50 col-start-2 flex h-10 w-10 flex-col items-center justify-self-end gap-1.5 md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
