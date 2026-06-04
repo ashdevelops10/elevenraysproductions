@@ -17,7 +17,7 @@ export default function Contact() {
     const video = videoRef.current;
     if (!section || !video) return;
 
-    video.volume = 0.55;
+    video.muted = true;
     let sectionIsVisible = false;
 
     const updateVisibility = () => {
@@ -36,17 +36,6 @@ export default function Contact() {
     const playInViewport = () => {
       if (!sectionIsVisible) return;
 
-      video.muted = false;
-      void video.play().catch(() => {
-        video.muted = true;
-        void video.play().catch(() => undefined);
-      });
-    };
-
-    const enableAudio = () => {
-      if (!sectionIsVisible) return;
-
-      video.muted = false;
       void video.play().catch(() => undefined);
     };
 
@@ -75,18 +64,12 @@ export default function Contact() {
 
     observer.observe(section);
     syncPlayback();
-    window.addEventListener("pointerdown", enableAudio);
-    window.addEventListener("keydown", enableAudio);
-    window.addEventListener("touchstart", enableAudio, { passive: true });
     window.addEventListener("scroll", syncPlayback, { passive: true });
     window.addEventListener("resize", syncPlayback);
     document.addEventListener("visibilitychange", syncPlayback);
 
     return () => {
       observer.disconnect();
-      window.removeEventListener("pointerdown", enableAudio);
-      window.removeEventListener("keydown", enableAudio);
-      window.removeEventListener("touchstart", enableAudio);
       window.removeEventListener("scroll", syncPlayback);
       window.removeEventListener("resize", syncPlayback);
       document.removeEventListener("visibilitychange", syncPlayback);
@@ -113,6 +96,7 @@ export default function Contact() {
         sources={CONTACT_VIDEO_SOURCES}
         className="absolute inset-0 h-full w-full object-cover brightness-90 saturate-115"
         loop
+        muted
         preload="metadata"
       />
       <div className="absolute inset-0 bg-black/55" />

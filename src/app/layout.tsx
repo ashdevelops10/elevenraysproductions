@@ -21,24 +21,24 @@ const sans = Jost({
 export const metadata: Metadata = {
   metadataBase: new URL("https://elevenraysproductions.com"),
   title: {
-    default: "Eleven Rays Productions — Photography Studio",
+    default: "Eleven Rays Productions — Creative Production Studio",
     template: "%s · Eleven Rays Productions",
   },
   description:
-    "Eleven Rays Productions photographs spaces, food, objects and people — one frame at a time, with the patience light demands.",
+    "Eleven Rays Productions creates social media systems, reels, photoshoots, drone shoots and visual content for brands with direction.",
   keywords: [
-    "photography studio",
-    "property photography",
-    "editorial photography",
-    "food photography",
-    "still life photography",
-    "photography",
-    "mumbai photography studio",
+    "creative production studio",
+    "social media management",
+    "content creation",
+    "reels production",
+    "photoshoots",
+    "drone shoots",
+    "mumbai content studio",
   ],
   openGraph: {
-    title: "Eleven Rays Productions — Photography Studio",
+    title: "Eleven Rays Productions — Creative Production Studio",
     description:
-      "Spaces, food, objects and people photographed with patience, restraint and intention.",
+      "Social media management, content creation, reels, photoshoots and drone shoots for brands with direction.",
     type: "website",
   },
   robots: { index: true, follow: true },

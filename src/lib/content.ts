@@ -11,44 +11,43 @@ export type ImageAsset = {
 const portfolio = (file: string) => `/images/portfolio/${file}`;
 
 export const HERO = {
-  tagline: "Every ray of light tells a story.",
+  tagline: "One point. Infinite direction.",
   headline: "Eleven Rays Productions",
   subline:
-    "We photograph spaces, food, objects and people — one frame at a time, with the patience light demands.",
+    "Every surface has a secret. we find it, frame it, and let it speak.",
   cta: "View the Work",
 } as const;
 
 export const PHILOSOPHY = {
-  eyebrow: "Every frame, crafted with intention.",
-  heading: "We don't chase the light. We wait for it.",
+  eyebrow: "Every idea needs a direction.",
+  heading: "A ray begins at one fixed point and extends infinitely in one direction.",
   paragraphs: [
-    "Photography is a study in patience. The right ray of light on the right surface — that is not luck. It is preparation, timing and a refusal to settle for less.",
-    "We bring that discipline to every project, from a single product shot to a full interior campaign.",
+    "That is the thought behind Eleven Rays: a single point of intent, shaped into content that keeps moving outward.",
   ],
 } as const;
 
 export const SERVICES_INTRO = {
-  heading: "What we photograph.",
-  subHeading: "Four disciplines. One visual language.",
+  heading: "Services",
+  subHeading: "Strategy, content and production support for brands that need a steady visual presence.",
 } as const;
 
 export const WORK_INTRO = {
   heading: "Selected Work",
-  subHeading: "An archive of frames — shot with purpose, arranged to be seen.",
-  metaStart: "Shot with purpose",
-  metaEnd: "Arranged to be seen",
+  subHeading: "A visual archive across campaigns, spaces, food, products and brand stories.",
+  metaStart: "Content with intent",
+  metaEnd: "Built to travel",
 } as const;
 
 export const CONTACT_CONTENT = {
-  heading: "Let's find the right light for your work.",
-  subText: "Tell us what you're building. We'll tell you how it should look.",
+  heading: "Let's give your brand a direction.",
+  subText: "Tell us what you're building. We'll shape the content, visuals and social presence around it.",
   cta: "Get in Touch",
   inputPlaceholder: "hello@elevenraysproductions.com",
   newsletter: "New work, when it's ready. No noise.",
 } as const;
 
 export const FOOTER_CONTENT = {
-  tagline: "Photography by Eleven Rays Productions",
+  tagline: "Creative production by Eleven Rays Productions",
   copyright: "© 2026 Eleven Rays Productions. All rights reserved.",
   location: "A PART OF ELEVEN RAYS",
 } as const;
@@ -63,31 +62,17 @@ export const NAV_LINKS = [
 export const SERVICES = [
   {
     no: "01",
-    title: "Property",
+    title: "Social Media Management",
     blurb:
-      "Residential and commercial spaces photographed for scale, light and atmosphere. Every room is framed as a scene.",
-    image: portfolio("property-commercial-lobby-long-view.webp"),
+      "A complete system for keeping your brand present, consistent and sharp across platforms.",
+    inclusions: ["Content calendars", "Platform handling", "Campaign direction"],
   },
   {
     no: "02",
-    title: "Editorial",
+    title: "Content Creation",
     blurb:
-      "Fashion and portrait work with movement, silhouette and character. Strong light, stronger story.",
-    image: portfolio("editorial-gallery-wall.webp"),
-  },
-  {
-    no: "03",
-    title: "Food & Culinary",
-    blurb:
-      "Dishes, ingredients and dining stories styled for appetite and texture. Built to make people hungry.",
-    image: portfolio("pizza-rustic-overhead.webp"),
-  },
-  {
-    no: "04",
-    title: "Product & Still Life",
-    blurb:
-      "Objects, brand compositions and cafe scenes. Detail-led work that earns the second look.",
-    image: portfolio("product-story-red.webp"),
+      "Production for the content your brand needs every month, built with direction, polish and purpose.",
+    inclusions: ["Reels", "Photoshoots", "Drone Shoots"],
   },
 ] as const;
 
@@ -106,8 +91,9 @@ export const COLLECTIONS: Collection[] = [
     kicker: "Property 01",
     title: "Property",
     description:
-      "Spaces before they are lived in. Light caught at its most honest hour.",
+      "Spaces, surfaces and details arranged into a clear visual story.",
     images: [
+      { id: "rp0", src: portfolio("property-commercial-lobby-long-view.webp"), alt: "Long view through the warm commercial lobby", span: "wide" },
       { id: "rp1", src: portfolio("property-apartment-bedroom-wide.webp"), alt: "Wide view of a warm apartment bedroom", span: "wide" },
       { id: "rp2", src: portfolio("property-apartment-bedroom-tv.webp"), alt: "Apartment bedroom with television and vanity wall", span: "wide" },
       { id: "rp3", src: portfolio("property-apartment-vanity-wall.webp"), alt: "Vanity wall and media unit in the bedroom", span: "wide" },
@@ -134,7 +120,6 @@ export const COLLECTIONS: Collection[] = [
         { id: "property-office-7", src: portfolio("property-commercial-executive-office.webp"), alt: "Executive office with desk and patterned wall light", span: "wide" },
         { id: "property-office-8", src: portfolio("property-commercial-turnstile-entry.webp"), alt: "Turnstile entry corridor in a commercial lobby", span: "wide" },
         { id: "property-office-9", src: portfolio("property-commercial-lobby-corridor.webp"), alt: "Long commercial lobby corridor with seating", span: "wide" },
-        { id: "property-office-10", src: portfolio("property-commercial-lobby-long-view.webp"), alt: "Long view through the warm commercial lobby", span: "wide" },
       ],
     ],
   },
@@ -171,40 +156,36 @@ export const COLLECTIONS: Collection[] = [
       { id: "cu9", src: portfolio("pizza-slices-grid.webp"), alt: "Pizza slices arranged in a graphic grid", span: "tall" },
       { id: "cu10", src: portfolio("sandwich-newspaper-still-life.webp"), alt: "Sandwich still life on newspaper", span: "square" },
     ],
-  },
-  {
-    id: "product-still-life",
-    kicker: "Product & Still Life 04",
-    title: "Product & Still Life",
-    description: "Objects that speak when they are allowed to be quiet.",
-    images: [
-      { id: "ps1", src: portfolio("still-life-table.webp"), alt: "Overhead styled tabletop still life", span: "wide" },
-      { id: "ps2", src: portfolio("product-story-red.webp"), alt: "Product still life with red accents", span: "tall" },
-      { id: "ps3", src: portfolio("coffee-beans-flatlay.webp"), alt: "Coffee cup and beans flat lay", span: "wide" },
-      { id: "ps4", src: portfolio("single-serve-platter.webp"), alt: "Single serve platter on a smoky set", span: "square" },
-      { id: "ps5", src: portfolio("layered-iced-coffee.webp"), alt: "Layered iced coffee against brick", span: "wide" },
-      { id: "ps6", src: portfolio("yellow-lemonade-still-life.webp"), alt: "Lemonade still life on a yellow set", span: "wide" },
-      { id: "ps7", src: portfolio("baking-table-flatlay.webp"), alt: "Baking table flat lay with cookies and twine", span: "wide" },
-      { id: "ps8", src: portfolio("cookies-window-reading.webp"), alt: "Cookies by a window with an open book", span: "wide" },
-      { id: "ps9", src: portfolio("cookies-telephone-window.webp"), alt: "Cookies and vintage telephone by a bright window", span: "wide" },
-      { id: "ps10", src: portfolio("pastry-writing-desk.webp"), alt: "Pastry and writing desk flat lay", span: "wide" },
+    additionalRows: [
+      [
+        { id: "ps1", src: portfolio("still-life-table.webp"), alt: "Overhead styled tabletop still life", span: "wide" },
+        { id: "ps2", src: portfolio("product-story-red.webp"), alt: "Product still life with red accents", span: "tall" },
+        { id: "ps3", src: portfolio("coffee-beans-flatlay.webp"), alt: "Coffee cup and beans flat lay", span: "wide" },
+        { id: "ps4", src: portfolio("single-serve-platter.webp"), alt: "Single serve platter on a smoky set", span: "square" },
+        { id: "ps5", src: portfolio("layered-iced-coffee.webp"), alt: "Layered iced coffee against brick", span: "wide" },
+        { id: "ps6", src: portfolio("yellow-lemonade-still-life.webp"), alt: "Lemonade still life on a yellow set", span: "wide" },
+        { id: "ps7", src: portfolio("baking-table-flatlay.webp"), alt: "Baking table flat lay with cookies and twine", span: "wide" },
+        { id: "ps8", src: portfolio("cookies-window-reading.webp"), alt: "Cookies by a window with an open book", span: "wide" },
+        { id: "ps9", src: portfolio("cookies-telephone-window.webp"), alt: "Cookies and vintage telephone by a bright window", span: "wide" },
+        { id: "ps10", src: portfolio("pastry-writing-desk.webp"), alt: "Pastry and writing desk flat lay", span: "wide" },
+      ],
     ],
   },
 ];
 
 export const STUDIO = {
   label: "Studio Intro",
-  title: "Light is the only ingredient that matters.",
+  title: "A fixed point. A clear direction. Content that keeps moving.",
   image: {
     src: portfolio("studio-texture-dark.webp"),
     alt: "Dark studio texture from production footage",
   },
   paragraphs: [
-    "A part of Eleven Rays. Built on the same obsession with light.",
-    "We work across property, editorial, food and product. Every category, the same standard: composed with intention, lit with restraint, and finished to last.",
+    "Eleven Rays Productions is a creative studio for brands that need more than isolated visuals. We shape social media management, content creation and production into one connected visual direction.",
+    "From reels and photoshoots to drone shoots and campaign assets, every project begins from one clear point and extends outward with consistency.",
   ],
   location:
-    "A part of Eleven Rays Productions. Built on the same obsession with light.",
+    "A part of Eleven Rays.",
 } as const;
 
 export const SITE = {
