@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { COLLECTIONS, WORK_INTRO, type Collection, type ImageAsset } from "@/lib/content";
 import OptimizedImage from "./OptimizedImage";
 import Reveal from "./Reveal";
@@ -14,24 +14,150 @@ const marqueeItemClass: Record<NonNullable<ImageAsset["span"]>, string> = {
 
 const MARQUEE_PIXELS_PER_SECOND = 88;
 
-function MarqueeImage({ image }: { image: ImageAsset }) {
+function MarqueeImage({
+  image,
+  onOpen,
+}: {
+  image: ImageAsset;
+  onOpen: () => void;
+}) {
   return (
     <figure
       className={`group relative shrink-0 overflow-hidden ${
         marqueeItemClass[image.span ?? "square"]
       }`}
     >
-      <OptimizedImage
-        src={image.src}
-        alt={image.alt}
-        fill
-        sizes="(max-width: 640px) 70vw, (max-width: 1024px) 48vw, 34vw"
-        className="object-contain brightness-[1.12] contrast-[1.04] saturate-[1.34] transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
-      />
-      <figcaption className="pointer-events-none absolute bottom-0 left-0 right-0 translate-y-2 bg-linear-to-t from-black/75 to-transparent p-3 text-[0.56rem] uppercase tracking-[0.2em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-        {image.alt}
-      </figcaption>
+      <button
+        type="button"
+        onClick={onOpen}
+        className="relative block h-full w-full cursor-zoom-in text-left"
+        aria-label={`Open ${image.alt}`}
+      >
+        <OptimizedImage
+          src={image.src}
+          alt={image.alt}
+          fill
+          sizes="(max-width: 640px) 70vw, (max-width: 1024px) 48vw, 34vw"
+          className="object-contain brightness-[1.12] contrast-[1.04] saturate-[1.34] transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+        />
+        <figcaption className="pointer-events-none absolute bottom-0 left-0 right-0 translate-y-2 bg-linear-to-t from-black/75 to-transparent p-3 text-[0.56rem] uppercase tracking-[0.2em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          {image.alt}
+        </figcaption>
+      </button>
     </figure>
+  );
+}
+
+function ImageViewer({
+  images,
+  activeIndex,
+  onClose,
+  onPrevious,
+  onNext,
+}: {
+  images: ImageAsset[];
+  activeIndex: number;
+  onClose: () => void;
+  onPrevious: () => void;
+  onNext: () => void;
+}) {
+  const activeImage = images[activeIndex];
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+
+      if (event.key === "ArrowLeft") {
+        onPrevious();
+      }
+
+      if (event.key === "ArrowRight") {
+        onNext();
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose, onNext, onPrevious]);
+
+  if (!activeImage) {
+    return null;
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className="fixed inset-0 z-[100] bg-black/94 px-4 py-5 text-white sm:px-8 sm:py-8"
+      role="dialog"
+      aria-modal="true"
+      aria-label={activeImage.alt}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute inset-0 cursor-default"
+        aria-label="Close image viewer backdrop"
+        tabIndex={-1}
+      />
+
+      <div className="relative z-10 flex h-full flex-col gap-4">
+        <div className="flex items-center justify-between gap-4 text-[0.6rem] uppercase tracking-[0.28em] text-white/70 sm:text-[0.65rem]">
+          <span>
+            {String(activeIndex + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
+          </span>
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid h-10 w-10 place-items-center border border-white/24 text-xl leading-none text-white transition-colors hover:border-white"
+            aria-label="Close image viewer"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="relative min-h-0 flex-1">
+          <OptimizedImage
+            src={activeImage.src}
+            alt={activeImage.alt}
+            fill
+            sizes="100vw"
+            className="object-contain"
+            priority
+          />
+
+          <button
+            type="button"
+            onClick={onPrevious}
+            className="absolute left-0 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center border border-white/24 bg-black/35 text-2xl leading-none text-white backdrop-blur-sm transition-colors hover:border-white sm:left-4 sm:h-14 sm:w-14"
+            aria-label="Previous image"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            onClick={onNext}
+            className="absolute right-0 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center border border-white/24 bg-black/35 text-2xl leading-none text-white backdrop-blur-sm transition-colors hover:border-white sm:right-4 sm:h-14 sm:w-14"
+            aria-label="Next image"
+          >
+            →
+          </button>
+        </div>
+
+        <p className="mx-auto max-w-3xl text-center text-xs uppercase leading-relaxed tracking-[0.24em] text-white/72 sm:text-[0.7rem]">
+          {activeImage.alt}
+        </p>
+      </div>
+    </motion.div>
   );
 }
 
@@ -46,6 +172,31 @@ function MarqueeRow({
   const trackRef = useRef<HTMLDivElement>(null);
   const [duration, setDuration] = useState(40);
   const [isPaused, setIsPaused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const closeViewer = useCallback(() => {
+    setActiveIndex(null);
+  }, []);
+
+  const showPrevious = useCallback(() => {
+    setActiveIndex((currentIndex) => {
+      if (currentIndex === null) {
+        return currentIndex;
+      }
+
+      return (currentIndex - 1 + images.length) % images.length;
+    });
+  }, [images.length]);
+
+  const showNext = useCallback(() => {
+    setActiveIndex((currentIndex) => {
+      if (currentIndex === null) {
+        return currentIndex;
+      }
+
+      return (currentIndex + 1) % images.length;
+    });
+  }, [images.length]);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -111,61 +262,92 @@ function MarqueeRow({
     };
   }, [reduceMotion]);
 
+  const viewer = (
+    <AnimatePresence>
+      {activeIndex !== null ? (
+        <ImageViewer
+          images={images}
+          activeIndex={activeIndex}
+          onClose={closeViewer}
+          onPrevious={showPrevious}
+          onNext={showNext}
+        />
+      ) : null}
+    </AnimatePresence>
+  );
+
   if (reduceMotion) {
     return (
-      <div className="no-scrollbar flex gap-6 overflow-x-auto px-5 pb-6 sm:px-8 lg:px-12">
-        {images.map((image) => (
-          <MarqueeImage key={image.id} image={image} />
-        ))}
-      </div>
+      <>
+        <div className="no-scrollbar flex gap-6 overflow-x-auto px-5 pb-6 sm:px-8 lg:px-12">
+          {images.map((image, imageIndex) => (
+            <MarqueeImage
+              key={image.id}
+              image={image}
+              onOpen={() => {
+                setActiveIndex(imageIndex);
+              }}
+            />
+          ))}
+        </div>
+        {viewer}
+      </>
     );
   }
 
-  // Duplicate the set so the -50% translate loops seamlessly.
   const loop = [...images, ...images];
 
   return (
-    <div
-      className="relative overflow-hidden py-2"
-      style={{
-        maskImage:
-          "linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent)",
-      }}
-    >
+    <>
       <div
-        ref={trackRef}
-        className="flex w-max gap-6 lg:gap-10"
+        className="relative overflow-hidden py-2"
         style={{
-          animationName: "marquee",
-          animationDuration: `${duration}s`,
-          animationTimingFunction: "linear",
-          animationIterationCount: "infinite",
-          animationDirection: reverse ? "reverse" : "normal",
-          animationPlayState: isPaused ? "paused" : "running",
-        }}
-        onMouseEnter={() => {
-          setIsPaused(true);
-        }}
-        onMouseLeave={() => {
-          setIsPaused(false);
-        }}
-        onPointerEnter={() => {
-          setIsPaused(true);
-        }}
-        onPointerLeave={() => {
-          setIsPaused(false);
-        }}
-        onPointerDown={() => {
-          setIsPaused(true);
+          maskImage:
+            "linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent)",
         }}
       >
-        {loop.map((image, index) => (
-          <MarqueeImage key={`${image.id}-${index}`} image={image} />
-        ))}
+        <div
+          ref={trackRef}
+          className="flex w-max gap-6 lg:gap-10"
+          style={{
+            animationName: "marquee",
+            animationDuration: `${duration}s`,
+            animationTimingFunction: "linear",
+            animationIterationCount: "infinite",
+            animationDirection: reverse ? "reverse" : "normal",
+            animationPlayState: isPaused || activeIndex !== null ? "paused" : "running",
+          }}
+          onMouseEnter={() => {
+            setIsPaused(true);
+          }}
+          onMouseLeave={() => {
+            setIsPaused(false);
+          }}
+          onPointerEnter={() => {
+            setIsPaused(true);
+          }}
+          onPointerLeave={() => {
+            setIsPaused(false);
+          }}
+          onPointerDown={() => {
+            setIsPaused(true);
+          }}
+        >
+          {loop.map((image, imageIndex) => (
+            <MarqueeImage
+              key={`${image.id}-${imageIndex}`}
+              image={image}
+              onOpen={() => {
+                setActiveIndex(imageIndex % images.length);
+              }}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+      {viewer}
+    </>
   );
 }
 

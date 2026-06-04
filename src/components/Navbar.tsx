@@ -20,31 +20,31 @@ export default function Navbar() {
     <header
       className="relative z-50 bg-transparent"
     >
-      <nav className="mx-auto grid max-w-400 items-center px-5 py-4 sm:px-8 md:grid-cols-[auto_1fr_auto] md:py-6">
+      <nav className="mx-auto grid max-w-400 items-center px-5 py-3 sm:px-8 md:grid-cols-[auto_1fr_auto] md:py-4">
         <a
           href="#top"
           className="group block"
           aria-label={`${SITE.name} — home`}
         >
-          <span className="relative block h-10 w-32 sm:h-12 sm:w-40">
+          <span className="relative block h-9 w-30 sm:h-10 sm:w-36">
             <OptimizedImage
               src="/logo2whitepng.png"
               alt={SITE.name}
               fill
               priority
-              sizes="(max-width: 640px) 128px, 160px"
+              sizes="(max-width: 640px) 120px, 144px"
               className="object-contain object-left"
             />
           </span>
         </a>
 
         {/* Desktop links — centered */}
-        <ul className="hidden items-center justify-center gap-10 md:flex">
+        <ul className="hidden items-center justify-center gap-9 md:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="group relative text-[0.7rem] uppercase tracking-[0.3em] text-foreground transition-colors hover:text-foreground"
+                className="group relative text-[0.66rem] uppercase tracking-[0.28em] text-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
                 <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-accent transition-all duration-500 group-hover:w-full" />
@@ -56,7 +56,7 @@ export default function Navbar() {
         {/* Desktop CTA — right */}
         <a
           href="#contact"
-          className="hidden border border-(--hairline) justify-self-end px-5 py-2 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent md:block"
+          className="hidden border border-(--hairline) justify-self-end px-4 py-2 text-[0.62rem] uppercase tracking-[0.28em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent md:block"
         >
           Book a Shoot
         </a>

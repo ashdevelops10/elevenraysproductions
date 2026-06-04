@@ -12,7 +12,7 @@ function AnimatedHeroTitle() {
   return (
     <h1
       aria-label={HERO.headline}
-      className="display overflow-hidden text-balance text-[15vw] font-light leading-[0.92] tracking-tight text-foreground sm:text-[12vw] md:text-[9rem] lg:text-[11rem]"
+      className="display overflow-hidden text-balance text-[14vw] font-light leading-[0.9] tracking-tight text-foreground sm:text-[11vw] md:text-[clamp(5.25rem,17vh,8.75rem)] lg:text-[clamp(6rem,18vh,9.75rem)]"
     >
       <span aria-hidden="true">
         {HERO_TITLE_LINES.map((line, lineIndex) => (
@@ -57,7 +57,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative h-svh w-full overflow-hidden"
+      className="relative h-[calc(100svh-60px)] min-h-[560px] w-full overflow-hidden md:h-[calc(100svh-72px)]"
     >
       {/* Backdrop media can be served from Vercel Blob via NEXT_PUBLIC_* URLs. */}
       <motion.div style={{ y, scale }} className="absolute inset-0">
@@ -81,28 +81,28 @@ export default function Hero() {
       {/* Hero copy */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 text-center drop-shadow-[0_2px_22px_rgba(0,0,0,0.85)]"
+        className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 pb-6 text-center drop-shadow-[0_2px_22px_rgba(0,0,0,0.85)] md:pb-8"
       >
-        <p className="mb-6 text-[0.6rem] uppercase tracking-[0.5em] text-foreground sm:text-xs">
+        <p className="mb-4 text-[0.58rem] uppercase tracking-[0.46em] text-foreground sm:text-[0.68rem]">
           {HERO.tagline}
         </p>
 
         <AnimatedHeroTitle />
 
-        <p className="mt-7 max-w-md text-balance text-sm font-light leading-relaxed text-foreground sm:text-base">
+        <p className="mt-5 max-w-md text-balance text-sm font-light leading-relaxed text-foreground sm:text-[0.95rem]">
           {HERO.subline}
         </p>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
             href="#work"
-            className="border border-(--hairline) px-6 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
+            className="border border-(--hairline) px-5 py-2.5 text-[0.62rem] uppercase tracking-[0.28em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
           >
             {HERO.cta}
           </a>
           <a
             href="#contact"
-            className="bg-foreground px-6 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-background transition-all duration-500 hover:bg-accent hover:text-background"
+            className="bg-foreground px-5 py-2.5 text-[0.62rem] uppercase tracking-[0.28em] text-background transition-all duration-500 hover:bg-accent hover:text-background"
           >
             {HERO.secondaryCta}
           </a>
