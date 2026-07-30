@@ -483,21 +483,8 @@ export default function Work() {
               <p className="max-w-lg text-sm font-light leading-relaxed text-white/70 sm:text-base lg:text-right lg:text-lg">
                 {WORK_INTRO.subHeading}
               </p>
-              <div className="mt-5 flex gap-3 text-[0.58rem] uppercase tracking-[0.24em] text-white/52 sm:text-[0.62rem] lg:justify-end">
-                <span>{WORK_INTRO.metaStart}</span>
-                <span className="h-px w-12 self-center bg-white/25" />
-                <span>{WORK_INTRO.metaEnd}</span>
-              </div>
             </div>
           </div>
-        </Reveal>
-
-        <Reveal delay={0.08}>
-          <ul className="flex flex-wrap gap-x-6 gap-y-3 border-t border-white/12 py-7 text-[0.6rem] uppercase tracking-[0.24em] text-white/60 sm:text-[0.65rem]">
-            {WORK_INTRO.categories.map((category) => (
-              <li key={category}>{category}</li>
-            ))}
-          </ul>
         </Reveal>
       </div>
 

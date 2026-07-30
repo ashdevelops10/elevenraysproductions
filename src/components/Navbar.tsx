@@ -18,26 +18,26 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header
-      className="relative z-50 bg-transparent"
-    >
-      <nav className="mx-auto flex max-w-400 items-center justify-between px-5 py-3 sm:px-8 md:grid md:grid-cols-[auto_1fr_auto] md:py-4">
+    <>
+    <header className="relative z-50 border-b border-white/8 bg-background/60 backdrop-blur-md">
+      <nav className="mx-auto flex max-w-400 items-center justify-between gap-4 px-5 py-3 sm:px-8 md:grid md:grid-cols-[auto_1fr_auto] md:py-4">
         <a
           href="#top"
-          className="group flex items-center gap-3"
+          className="group flex min-w-0 items-center gap-3"
           aria-label={`${SITE.name} — home`}
         >
-          <span className="relative block h-11 w-11 shrink-0 sm:h-12 sm:w-12">
+          <span className="relative block h-10 w-10 shrink-0 overflow-hidden rounded-full ring-1 ring-white/20 transition-all duration-500 group-hover:ring-accent/70 sm:h-11 sm:w-11">
             <OptimizedImage
               src="/suri-logo.webp"
               alt=""
               fill
               priority
-              sizes="48px"
-              className="object-contain"
+              sizes="44px"
+              className="object-cover"
+              style={{ objectPosition: "48% 40%", transform: "scale(1.35)" }}
             />
           </span>
-          <span className="text-sm font-light uppercase tracking-[0.28em] text-foreground sm:text-base">
+          <span className="truncate text-sm tracking-[0.02em] text-foreground [font-family:var(--font-logo)] sm:text-base">
             {SITE.name}
           </span>
         </a>
@@ -61,68 +61,81 @@ export default function Navbar() {
         <TicketButton
           href="#contact"
           label="Book a Shoot"
-          className="hidden justify-self-end md:inline-flex"
+          className="hidden shrink-0 justify-self-end whitespace-nowrap md:inline-flex"
         />
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-        >
-          <span
-            className={`h-px w-7 bg-foreground transition-all duration-500 ${
-              open ? "translate-y-[3.5px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-px w-7 bg-foreground transition-all duration-500 ${
-              open ? "translate-y-[-3.5px] -rotate-45" : ""
-            }`}
-          />
-        </button>
-      </nav>
-
-      {/* Mobile fullscreen menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-40 flex flex-col bg-background md:hidden"
+        {/* Mobile toggle — opens the menu; the overlay has its own close
+            button, since this one sits behind it (lower z-index) once open
+            and would otherwise be an inert duplicate a11y tools could still
+            find by its "Close menu" label. */}
+        {!open && (
+          <button
+            onClick={() => setOpen(true)}
+            className="relative z-50 flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-1.5 md:hidden"
+            aria-label="Open menu"
+            aria-expanded={false}
           >
-            <ul className="flex flex-1 flex-col items-center justify-center gap-2">
-              {NAV_LINKS.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.08, duration: 0.6 }}
-                >
-                  <a
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="display block py-3 text-5xl font-light tracking-wide"
-                  >
-                    {link.label}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-            <div className="border-t border-(--hairline) px-6 py-6 text-center">
-              <a
-                href={`mailto:${SITE.email}`}
-                className="text-xs uppercase tracking-[0.3em] text-muted"
-              >
-                {SITE.email}
-              </a>
-            </div>
-          </motion.div>
+            <span className="h-px w-7 bg-foreground" />
+            <span className="h-px w-7 bg-foreground" />
+          </button>
         )}
-      </AnimatePresence>
+      </nav>
     </header>
+
+    {/* Mobile fullscreen menu — rendered outside <header> so its own
+        backdrop-blur can't turn it into the containing block for this
+        fixed-position overlay (backdrop-filter creates one, same as
+        transform), which would otherwise collapse the overlay to the
+        header's height instead of the full viewport. */}
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="fixed inset-0 z-[60] flex flex-col bg-background md:hidden"
+        >
+          <div className="flex justify-end px-5 py-3 sm:px-8">
+            <button
+              onClick={() => setOpen(false)}
+              className="flex h-10 w-10 flex-col items-center justify-center gap-1.5"
+              aria-label="Close menu"
+            >
+              <span className="h-px w-7 translate-y-[3.5px] rotate-45 bg-foreground" />
+              <span className="h-px w-7 translate-y-[-3.5px] -rotate-45 bg-foreground" />
+            </button>
+          </div>
+
+          <ul className="flex flex-1 flex-col items-center justify-center gap-2 pb-16">
+            {NAV_LINKS.map((link, i) => (
+              <motion.li
+                key={link.href}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.08, duration: 0.6 }}
+              >
+                <a
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="display block py-3 text-5xl font-light tracking-wide"
+                >
+                  {link.label}
+                </a>
+              </motion.li>
+            ))}
+          </ul>
+          <div className="border-t border-(--hairline) px-6 py-6 text-center">
+            <a
+              href={`mailto:${SITE.email}`}
+              className="text-xs uppercase tracking-[0.3em] text-muted"
+            >
+              {SITE.email}
+            </a>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   );
 }

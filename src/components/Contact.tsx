@@ -1,96 +1,23 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import Reveal from "./Reveal";
 import { CONTACT_CONTENT } from "@/lib/content";
-import { CONTACT_VIDEO_SOURCES } from "@/lib/media";
-import OptimizedVideo from "./OptimizedVideo";
+import OptimizedImage from "./OptimizedImage";
 import TicketButton from "./TicketButton";
 
 export default function Contact() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const video = videoRef.current;
-    if (!section || !video) return;
-
-    video.muted = true;
-    let sectionIsVisible = false;
-
-    const updateVisibility = () => {
-      if (document.hidden) {
-        sectionIsVisible = false;
-        return;
-      }
-
-      const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-      const visibleRatio = Math.max(0, visibleHeight) / Math.min(rect.height, viewportHeight);
-      sectionIsVisible = visibleRatio >= 0.45;
-    };
-
-    const playInViewport = () => {
-      if (!sectionIsVisible) return;
-
-      void video.play().catch(() => undefined);
-    };
-
-    const syncPlayback = () => {
-      updateVisibility();
-
-      if (sectionIsVisible) {
-        if (video.paused) playInViewport();
-      } else {
-        video.pause();
-      }
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        sectionIsVisible = entry.isIntersecting;
-
-        if (entry.isIntersecting) {
-          playInViewport();
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.45 }
-    );
-
-    observer.observe(section);
-    syncPlayback();
-    window.addEventListener("scroll", syncPlayback, { passive: true });
-    window.addEventListener("resize", syncPlayback);
-    document.addEventListener("visibilitychange", syncPlayback);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", syncPlayback);
-      window.removeEventListener("resize", syncPlayback);
-      document.removeEventListener("visibilitychange", syncPlayback);
-      video.pause();
-    };
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       id="contact"
       className="relative flex min-h-svh items-center overflow-hidden border-t border-(--hairline) py-28 sm:py-40"
     >
-      <OptimizedVideo
-        ref={videoRef}
-        sources={CONTACT_VIDEO_SOURCES}
-        className="absolute inset-0 h-full w-full object-cover brightness-90 saturate-115"
-        loop
-        muted
-        preload="metadata"
+      <OptimizedImage
+        src="/images/portfolio/vytl-event-dj-booth-teal.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover brightness-95 saturate-115"
+        style={{ objectPosition: "50% 35%" }}
       />
-      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center drop-shadow-[0_2px_18px_rgba(0,0,0,0.85)]">
         <Reveal delay={0.05}>

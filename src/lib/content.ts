@@ -30,23 +30,14 @@ export const PHILOSOPHY = {
 export const SERVICES_INTRO = {
   heading: "Services",
   subHeading: "Photography built around your objective.",
-  cta: "Explore Services",
+  cta: "Know Shoot Prices",
+  ctaUrl: "https://wa.me/918219641613?text=Hi%2C%20I%27d%20like%20to%20know%20the%20shoot%20prices.",
 } as const;
 
 export const WORK_INTRO = {
   heading: "Selected Work",
   subHeading:
     "A selection of commercial campaigns, artist portraits, products, food, interiors, travel and live experiences.",
-  metaStart: "People. Products. Places.",
-  metaEnd: "Stories.",
-  categories: [
-    "People & Artists",
-    "Brands",
-    "Products",
-    "Food",
-    "Spaces",
-    "Industry",
-  ],
   cta: "Explore All Work",
 } as const;
 
@@ -223,6 +214,7 @@ export const COLLECTIONS: Collection[] = [
     description:
       "Spaces, surfaces and details arranged into a clear visual story.",
     images: [
+      { id: "rp0", src: portfolio("property-commercial-lobby-marble.webp"), alt: "Marble commercial lobby with a sculptural wall", span: "wide" },
       { id: "rp1", src: portfolio("property-apartment-bedroom-wide.webp"), alt: "Wide view of a warm apartment bedroom", span: "wide" },
       { id: "rp2", src: portfolio("property-apartment-bedroom-tv.webp"), alt: "Apartment bedroom with television and vanity wall", span: "wide" },
       { id: "rp3", src: portfolio("property-apartment-vanity-wall.webp"), alt: "Vanity wall and media unit in the bedroom", span: "wide" },
@@ -240,7 +232,6 @@ export const COLLECTIONS: Collection[] = [
     ],
     additionalRows: [
       [
-        { id: "property-office-1", src: portfolio("property-commercial-lobby-marble.webp"), alt: "Marble commercial lobby with a sculptural wall", span: "wide" },
         { id: "property-office-2", src: portfolio("property-commercial-reception-art-wall.webp"), alt: "Reception desk and large textured art wall", span: "wide" },
         { id: "property-office-3", src: portfolio("property-commercial-reception-lounge.webp"), alt: "Bright reception lounge with chandeliers", span: "wide" },
         { id: "property-office-4", src: portfolio("property-commercial-terrace-dining.webp"), alt: "Outdoor terrace dining area at night", span: "wide" },
@@ -331,30 +322,6 @@ export const COLLECTIONS: Collection[] = [
         { id: "fa18", src: portfolio("fashion-portrait-soft-light.webp"), alt: "Portrait in soft directional light", span: "tall" },
         { id: "fa19", src: portfolio("fashion-look-four.webp"), alt: "Fashion look on location", span: "square" },
         { id: "fa20", src: portfolio("fashion-portrait-final.webp"), alt: "Fashion portrait with warm tones", span: "square" },
-      ],
-    ],
-  },
-  {
-    id: "beauty",
-    kicker: "Beauty 05",
-    title: "Beauty",
-    description:
-      "Skin, colour and light — held in close focus.",
-    images: [
-      { id: "be1", src: portfolio("beauty-jewel-eyeshadow-portrait.webp"), alt: "Beauty portrait with jewel-toned eyeshadow and gem detailing", span: "wide" },
-      { id: "be2", src: portfolio("beauty-glam-portrait-studio.webp"), alt: "Studio glam beauty portrait", span: "tall" },
-      { id: "be3", src: portfolio("beauty-closeup-lip-detail.webp"), alt: "Close-up detail of a glossy lip look", span: "tall" },
-      { id: "be4", src: portfolio("beauty-editorial-portrait-one.webp"), alt: "Editorial beauty portrait, look one", span: "tall" },
-      { id: "be5", src: portfolio("beauty-editorial-portrait-two.webp"), alt: "Editorial beauty portrait, look two", span: "tall" },
-      { id: "be6", src: portfolio("beauty-soft-glam-portrait.webp"), alt: "Soft glam beauty portrait", span: "tall" },
-      { id: "be7", src: portfolio("beauty-brush-application-smile.webp"), alt: "Makeup brush application caught mid-smile", span: "tall" },
-      { id: "be8", src: portfolio("beauty-bold-look-portrait.webp"), alt: "Bold beauty look portrait", span: "tall" },
-    ],
-    additionalRows: [
-      [
-        { id: "be9", src: portfolio("beauty-natural-glow-portrait.webp"), alt: "Natural glow beauty portrait", span: "tall" },
-        { id: "be10", src: portfolio("beauty-studio-portrait-final.webp"), alt: "Studio beauty portrait", span: "tall" },
-        { id: "be11", src: portfolio("beauty-portrait-detail-close.webp"), alt: "Close beauty portrait detail", span: "tall" },
       ],
     ],
   },

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Cormorant_Garamond, Jost, Luckiest_Guy } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -15,6 +15,13 @@ const sans = Jost({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["200", "300", "400", "500"],
+  display: "swap",
+});
+
+const logo = Luckiest_Guy({
+  variable: "--font-logo",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -57,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} ${logo.variable} h-full antialiased`}
     >
       <body className="grain vignette relative min-h-full flex flex-col">
         <Navbar />

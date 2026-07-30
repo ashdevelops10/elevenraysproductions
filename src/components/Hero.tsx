@@ -3,8 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { HERO, SITE } from "@/lib/content";
-import { HERO_VIDEO_POSTER, HERO_VIDEO_SOURCES } from "@/lib/media";
-import OptimizedVideo from "./OptimizedVideo";
+import OptimizedImage from "./OptimizedImage";
 import TicketButton from "./TicketButton";
 
 const HERO_TITLE_LINES = ["Work By Suri"];
@@ -13,7 +12,7 @@ function AnimatedHeroTitle() {
   return (
     <h1
       aria-label={HERO.headline}
-      className="display overflow-hidden text-balance text-[10vw] font-light leading-[0.9] tracking-tight text-foreground sm:text-[8vw] md:text-[clamp(3.75rem,11vh,6.75rem)] lg:text-[clamp(4.5rem,12vh,7.75rem)]"
+      className="overflow-hidden text-balance text-[7vw] font-normal leading-[1] tracking-[0.01em] text-foreground [font-family:var(--font-logo)] sm:text-[5.5vw] md:text-[clamp(2.25rem,6.5vh,3.75rem)] lg:text-[clamp(2.75rem,7vh,4.5rem)]"
     >
       <span aria-hidden="true">
         {HERO_TITLE_LINES.map((line, lineIndex) => (
@@ -60,37 +59,36 @@ export default function Hero() {
       id="top"
       className="relative h-[calc(100svh-60px)] min-h-[560px] w-full overflow-hidden md:h-[calc(100svh-72px)]"
     >
-      {/* Backdrop media can be served from Vercel Blob via NEXT_PUBLIC_* URLs. */}
       <motion.div style={{ y, scale }} className="absolute inset-0">
-        <OptimizedVideo
-          sources={HERO_VIDEO_SOURCES}
-          className="ken-burns absolute inset-0 h-full w-full object-cover brightness-110 saturate-125 contrast-105"
-          autoPlay
-          muted
-          loop
-          poster={HERO_VIDEO_POSTER}
-          preload="metadata"
+        <OptimizedImage
+          src="/IMG_3242.jpg.jpeg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="ken-burns absolute inset-0 h-full w-full object-cover grayscale brightness-100 contrast-110"
+          style={{ objectPosition: "50% 45%" }}
         />
       </motion.div>
 
       {/* Gentle contrast for readable type over bright color footage. */}
       <motion.div
         style={{ opacity: overlay }}
-        className="absolute inset-0 bg-linear-to-b from-black/15 via-black/10 to-black/55"
+        className="absolute inset-0 bg-linear-to-b from-black/30 via-black/25 to-black/60"
       />
 
       {/* Hero copy */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 pb-6 text-center drop-shadow-[0_2px_22px_rgba(0,0,0,0.85)] md:pb-8"
+        className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6 pb-6 text-center drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] md:pb-8"
       >
-        <p className="mb-5 text-[0.58rem] uppercase tracking-[0.46em] text-foreground sm:mb-6 sm:text-[0.68rem]">
+        <p className="mb-5 text-[0.58rem] font-medium uppercase tracking-[0.46em] text-foreground sm:mb-6 sm:text-[0.68rem]">
           {HERO.tagline}
         </p>
 
         <AnimatedHeroTitle />
 
-        <p className="mt-6 max-w-md text-balance text-sm font-light leading-relaxed text-foreground sm:mt-7 sm:text-[0.95rem]">
+        <p className="mt-6 max-w-md text-balance text-sm font-normal leading-relaxed text-foreground sm:mt-7 sm:text-[0.95rem]">
           {HERO.subline}
         </p>
 

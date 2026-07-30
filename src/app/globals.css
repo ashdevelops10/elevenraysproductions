@@ -16,6 +16,7 @@
   --color-accent: var(--accent);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
+  --font-logo: var(--font-logo);
 
   --animate-marquee: marquee 38s linear infinite;
 }
@@ -114,7 +115,7 @@ body {
 }
 
 .service-panel {
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
 }
 
 /* Color-preserving media treatment */

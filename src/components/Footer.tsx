@@ -11,7 +11,7 @@ export default function Footer() {
             <a
               href="#top"
               aria-label="Home"
-              className="text-base font-light uppercase tracking-[0.28em] text-foreground sm:text-lg"
+              className="text-base tracking-[0.02em] text-foreground [font-family:var(--font-logo)] sm:text-lg"
             >
               {SITE.name}
             </a>
