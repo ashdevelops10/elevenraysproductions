@@ -5,6 +5,7 @@ import Reveal from "./Reveal";
 import { CONTACT_CONTENT } from "@/lib/content";
 import { CONTACT_VIDEO_SOURCES } from "@/lib/media";
 import OptimizedVideo from "./OptimizedVideo";
+import TicketButton from "./TicketButton";
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -103,14 +104,22 @@ export default function Contact() {
           </p>
         </Reveal>
         <Reveal delay={0.15}>
-          <a
-            href={CONTACT_CONTENT.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mx-auto mt-16 inline-flex border border-(--hairline) px-7 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
-          >
-            {CONTACT_CONTENT.cta}
-          </a>
+          <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <TicketButton
+              href={CONTACT_CONTENT.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              label={CONTACT_CONTENT.cta}
+            />
+            <a
+              href={CONTACT_CONTENT.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex border border-(--hairline) px-7 py-3 text-[0.65rem] uppercase tracking-[0.3em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
+            >
+              {CONTACT_CONTENT.secondaryCta}
+            </a>
+          </div>
         </Reveal>
         <p className="mt-4 text-[0.6rem] uppercase tracking-[0.3em] text-muted">
           {CONTACT_CONTENT.newsletter}

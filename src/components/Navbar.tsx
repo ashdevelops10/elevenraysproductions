@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { NAV_LINKS, SITE } from "@/lib/content";
 import OptimizedImage from "./OptimizedImage";
+import TicketButton from "./TicketButton";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -23,18 +24,21 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-400 items-center justify-between px-5 py-3 sm:px-8 md:grid md:grid-cols-[auto_1fr_auto] md:py-4">
         <a
           href="#top"
-          className="group block"
+          className="group flex items-center gap-3"
           aria-label={`${SITE.name} — home`}
         >
-          <span className="relative block h-9 w-30 sm:h-10 sm:w-36">
+          <span className="relative block h-11 w-11 shrink-0 sm:h-12 sm:w-12">
             <OptimizedImage
-              src="/logo2whitepng.png"
-              alt={SITE.name}
+              src="/suri-logo.webp"
+              alt=""
               fill
               priority
-              sizes="(max-width: 640px) 120px, 144px"
-              className="object-contain object-left"
+              sizes="48px"
+              className="object-contain"
             />
+          </span>
+          <span className="text-sm font-light uppercase tracking-[0.28em] text-foreground sm:text-base">
+            {SITE.name}
           </span>
         </a>
 
@@ -54,12 +58,11 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop CTA — right */}
-        <a
+        <TicketButton
           href="#contact"
-          className="hidden border border-(--hairline) justify-self-end px-4 py-2 text-[0.62rem] uppercase tracking-[0.28em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent md:block"
-        >
-          Book a Shoot
-        </a>
+          label="Book a Shoot"
+          className="hidden justify-self-end md:inline-flex"
+        />
 
         {/* Mobile toggle */}
         <button

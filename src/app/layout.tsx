@@ -19,18 +19,18 @@ const sans = Jost({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://elevenraysproductions.com"),
+  metadataBase: new URL("https://workbysuri.com"),
   icons: {
     icon: "/faviconfinal.png",
     shortcut: "/faviconfinal.png",
     apple: "/faviconfinal.png",
   },
   title: {
-    default: "Eleven Rays Productions — Creative Production Studio",
-    template: "%s · Eleven Rays Productions",
+    default: "Work By Suri — Creative Production Studio",
+    template: "%s · Work By Suri",
   },
   description:
-    "Eleven Rays Productions creates social media systems, reels, photoshoots, drone shoots and visual content for brands with direction.",
+    "Work By Suri creates social media systems, reels, photoshoots, drone shoots and visual content for brands with direction.",
   keywords: [
     "creative production studio",
     "social media management",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     "mumbai content studio",
   ],
   openGraph: {
-    title: "Eleven Rays Productions — Creative Production Studio",
+    title: "Work By Suri — Creative Production Studio",
     description:
       "Social media management, content creation, reels, photoshoots and drone shoots for brands with direction.",
     type: "website",

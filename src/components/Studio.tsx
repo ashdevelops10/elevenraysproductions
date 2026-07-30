@@ -42,6 +42,15 @@ export default function Studio() {
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={0.2}>
+            <a
+              href="#contact"
+              className="mt-10 inline-flex border border-(--hairline) px-6 py-3 text-[0.62rem] uppercase tracking-[0.28em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
+            >
+              {STUDIO.cta}
+            </a>
+          </Reveal>
         </div>
       </div>
     </section>

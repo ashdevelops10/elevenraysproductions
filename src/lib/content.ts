@@ -1,4 +1,4 @@
-// Centralised content for Eleven Rays Productions.
+// Centralised content for Work By Suri.
 // Images are compressed high-quality WebP derivatives generated from production archives.
 
 export type ImageAsset = {
@@ -11,70 +11,198 @@ export type ImageAsset = {
 const portfolio = (file: string) => `/images/portfolio/${file}`;
 
 export const HERO = {
-  tagline: "One point. Infinite direction.",
-  headline: "Eleven Rays Productions",
+  tagline: "Photography with purpose, character and impact.",
+  headline: "Work By Suri",
   subline:
-    "Every surface has a secret. we find it, frame it, and let it speak.",
-  cta: "View the Work",
-  secondaryCta: "Book a Shoot",
+    "Commercial and creative photography for brands, artists, agencies, products, food, spaces and industry. Based in Chandigarh Tricity. Available for projects across India.",
+  cta: "View Portfolio",
+  secondaryCta: "Discuss a Project",
 } as const;
 
 export const PHILOSOPHY = {
   eyebrow: "Every idea needs a direction.",
-  heading: "A ray begins at one fixed point and extends infinitely in one direction.",
+  heading: "Every idea starts with a clear intent and grows from there.",
   paragraphs: [
-    "That is the thought behind Eleven Rays: a single point of intent, shaped into content that keeps moving outward.",
+    "That is the thought behind Work By Suri: a clear point of intent, shaped into content that keeps moving outward.",
   ],
 } as const;
 
 export const SERVICES_INTRO = {
   heading: "Services",
-  subHeading: "Strategy, content and production support for brands that need a steady visual presence.",
+  subHeading: "Photography built around your objective.",
+  cta: "Explore Services",
 } as const;
 
 export const WORK_INTRO = {
   heading: "Selected Work",
-  subHeading: "A visual archive across campaigns, spaces, food, products and brand stories.",
-  metaStart: "Content with intent",
-  metaEnd: "Built to travel",
+  subHeading:
+    "A selection of commercial campaigns, artist portraits, products, food, interiors, travel and live experiences.",
+  metaStart: "People. Products. Places.",
+  metaEnd: "Stories.",
+  categories: [
+    "People & Artists",
+    "Brands",
+    "Products",
+    "Food",
+    "Spaces",
+    "Industry",
+  ],
+  cta: "Explore All Work",
+} as const;
+
+export type Collaborator = {
+  name: string;
+  logo: string;
+  /** CSS object-position for the crop, e.g. "center 20%". Defaults to "center top". */
+  focus?: string;
+};
+
+export const COLLABORATIONS = {
+  eyebrow: "Collaborations",
+  heading: "Trusted by brands, artists and creative teams.",
+  subHeading: "Selected work and collaborations include:",
+  brands: [
+    { name: "Muricha Beauty", logo: "/brands/Mrucha.png" },
+    { name: "Urban Theka", logo: "/brands/urban theka.png" },
+    { name: "North East on Wheels", logo: "/brands/North East on Wheels.png" },
+    { name: "Events VYTL", logo: "/brands/vytl.jpeg" },
+  ] satisfies Collaborator[],
+  artists: [
+    { name: "Deepak Rathore Project", logo: "/brands/deepak-rathore.webp" },
+    { name: "Riar Saab", logo: "/brands/Riar Saab.jpg", focus: "55% 20%" },
+    { name: "Amulya Rattan", logo: "/brands/Amulya Rattan.JPG", focus: "35% 30%" },
+  ] satisfies Collaborator[],
+} as const;
+
+export const VYTL_EVENTS_INTRO = {
+  eyebrow: "Events VYTL",
+  heading: "Live from the last VYTL show.",
+  subHeading: "Stage, lights and crowd — captured as it happened.",
+} as const;
+
+export const VYTL_EVENTS: ImageAsset[] = [
+  { id: "vytl-1", src: portfolio("vytl-event-dj-booth-teal.webp"), alt: "VYTL stage branding lit up behind the DJ booth at dusk" },
+  { id: "vytl-2", src: portfolio("vytl-event-chroma-stage-lights.webp"), alt: "Chroma stage screen glowing above the rig at night" },
+  { id: "vytl-3", src: portfolio("vytl-event-backlit-dj-portrait.webp"), alt: "Backlit portrait of a performer at the decks" },
+  { id: "vytl-4", src: portfolio("vytl-event-crowd-wide.webp"), alt: "Wide view of the crowd at the VYTL event" },
+  { id: "vytl-5", src: portfolio("vytl-event-stage-performance.webp"), alt: "Performer on stage under moving lights" },
+  { id: "vytl-6", src: portfolio("vytl-event-night-crowd.webp"), alt: "Crowd gathered under the stage lights at night" },
+  { id: "vytl-7", src: portfolio("vytl-event-dj-silhouette.webp"), alt: "Silhouette of a DJ set against stage lighting" },
+  { id: "vytl-8", src: portfolio("vytl-event-closeup-performer.webp"), alt: "Close-up of a performer mid-set" },
+];
+
+export const RIAR_SAAB_INTRO = {
+  eyebrow: "Riar Saab",
+  heading: "On location with Riar Saab.",
+  subHeading: "Portraits shot on a working farm, unpolished and direct.",
+} as const;
+
+export const RIAR_SAAB_PHOTOS: ImageAsset[] = [
+  { id: "riar-1", src: portfolio("riar-saab-jeep-portrait-standing.webp"), alt: "Riar Saab standing in front of a vintage jeep" },
+  { id: "riar-2", src: portfolio("riar-saab-jeep-portrait-wide.webp"), alt: "Wide portrait of Riar Saab beside the jeep" },
+  { id: "riar-3", src: portfolio("riar-saab-farmyard-portrait.webp"), alt: "Riar Saab portrait in a farmyard setting" },
+  { id: "riar-4", src: portfolio("riar-saab-outdoor-portrait-alt.webp"), alt: "Outdoor portrait of Riar Saab, alternate angle" },
+  { id: "riar-5", src: portfolio("riar-saab-close-portrait.webp"), alt: "Close portrait of Riar Saab" },
+  { id: "riar-6", src: portfolio("riar-saab-with-horse.webp"), alt: "Riar Saab standing with a horse on the farm" },
+];
+
+export const REELS_INTRO = {
+  eyebrow: "On Instagram",
+  heading: "Reels from recent shoots.",
+} as const;
+
+export const REELS = [
+  { url: "https://www.instagram.com/reel/DUNq7ncDe0H/" },
+  { url: "https://www.instagram.com/reel/DUIhMH8inqa/" },
+  { url: "https://www.instagram.com/reel/DTpn20BEj8Z/" },
+  { url: "https://www.instagram.com/reel/DTiBnY0Da-F/" },
+  { url: "https://www.instagram.com/reel/DTc3hLuDTPU/" },
+  { url: "https://www.instagram.com/reel/DTAiOK6Emik/" },
+  { url: "https://www.instagram.com/reel/DS99f42DYMN/" },
+  { url: "https://www.instagram.com/reel/DStwhqeEgzN/" },
+  { url: "https://www.instagram.com/reel/DSUwx2VjQLy/" },
+  { url: "https://www.instagram.com/reel/DK7R3Mxpllg/" },
+  { url: "https://www.instagram.com/reel/DSZcarMja7Y/" },
+  { url: "https://www.instagram.com/reel/DME8ONYoKrF/" },
+] as const;
+
+export const APPROACH = {
+  eyebrow: "Approach",
+  heading: "Clear process. Strong execution.",
+  steps: [
+    { no: "01", title: "Understand", blurb: "The objective, audience and intended use." },
+    { no: "02", title: "Plan", blurb: "The concept, visual direction and shot list." },
+    { no: "03", title: "Create", blurb: "A focused, collaborative and professionally managed shoot." },
+    { no: "04", title: "Deliver", blurb: "Carefully edited images prepared for web, print and campaigns." },
+  ],
 } as const;
 
 export const CONTACT_CONTENT = {
-  heading: "Let's give your brand a direction.",
-  subText: "Tell us what you're building. We'll shape the content, visuals and social presence around it.",
-  cta: "Chat on WhatsApp",
+  heading: "Have a project in mind?",
+  subText:
+    "Whether it's a campaign, portrait, product, menu, property or industrial assignment—let's create images that give it a stronger presence.",
+  cta: "Start a Conversation",
+  secondaryCta: "Check Availability",
   whatsappLabel: "+91 8219641613",
   whatsappUrl: "https://wa.me/918219641613",
   newsletter: "Available on WhatsApp for project inquiries.",
 } as const;
 
 export const FOOTER_CONTENT = {
-  tagline: "Creative production by Eleven Rays Productions",
-  copyright: "© 2026 Eleven Rays Productions. All rights reserved.",
-  location: "A PART OF ELEVEN RAYS",
+  tagline: "Commercial and creative photography for people, brands, products and spaces.",
+  locations: "Chandigarh · Panchkula · Mohali · Available across India",
+  copyright: "© 2026 Work By Suri. All rights reserved.",
+  location: "A PART OF WORK BY SURI",
 } as const;
+
+export const SOCIAL_LINKS = [
+  { label: "Instagram", href: "https://instagram.com" },
+  { label: "Behance", href: "https://behance.net" },
+  { label: "LinkedIn", href: "https://linkedin.com" },
+] as const;
 
 export const NAV_LINKS = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
-  { label: "Studio", href: "#studio" },
+  { label: "About", href: "#studio" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
 export const SERVICES = [
   {
     no: "01",
-    title: "Social Media Management",
+    title: "People & Artists",
     blurb:
-      "A complete system for keeping your brand present, consistent and sharp across platforms.",
-    inclusions: ["Content calendars", "Platform handling", "Campaign direction"],
+      "Portraits, personal branding, portfolios, press kits and promotional campaigns.",
+    inclusions: ["Portraits", "Personal branding", "Press kits"],
   },
   {
     no: "02",
-    title: "Content Creation",
+    title: "Brands & Agencies",
     blurb:
-      "Production for the content your brand needs every month, built with direction, polish and purpose.",
-    inclusions: ["Reels", "Photoshoots", "Drone Shoots"],
+      "Campaign photography, brand content and dependable creative-production support.",
+    inclusions: ["Campaign photography", "Brand content", "Production support"],
+  },
+  {
+    no: "03",
+    title: "Products & Food",
+    blurb:
+      "E-commerce, advertising, menus, packaging and social-media imagery.",
+    inclusions: ["E-commerce", "Menus & packaging", "Social imagery"],
+  },
+  {
+    no: "04",
+    title: "Architecture & Real Estate",
+    blurb:
+      "Interiors, hospitality, commercial properties and architectural projects.",
+    inclusions: ["Interiors", "Hospitality", "Commercial properties"],
+  },
+  {
+    no: "05",
+    title: "Industrial & Corporate",
+    blurb:
+      "People, processes, facilities, machinery and workplace stories.",
+    inclusions: ["Facilities", "Machinery", "Workplace stories"],
   },
 ] as const;
 
@@ -173,28 +301,84 @@ export const COLLECTIONS: Collection[] = [
       ],
     ],
   },
+  {
+    id: "fashion",
+    kicker: "Fashion 04",
+    title: "Fashion",
+    description:
+      "Character, movement and mood — dressed for the frame.",
+    images: [
+      { id: "fa3", src: portfolio("fashion-green-jumpsuit-shutters.webp"), alt: "Portrait in a green jumpsuit against painted window shutters", span: "wide" },
+      { id: "fa1", src: portfolio("fashion-alley-trench-sunglasses.webp"), alt: "Editorial portrait in a leather trench beneath a concrete overpass", span: "tall" },
+      { id: "fa2", src: portfolio("fashion-alley-trench-back-view.webp"), alt: "Back view of the trench coat look on the same alley set", span: "tall" },
+      { id: "fa4", src: portfolio("fashion-street-portrait-urban.webp"), alt: "Street style portrait against an urban backdrop", span: "tall" },
+      { id: "fa5", src: portfolio("fashion-studio-portrait-neutral.webp"), alt: "Studio portrait in neutral tones", span: "tall" },
+      { id: "fa6", src: portfolio("fashion-outdoor-portrait-stairs.webp"), alt: "Outdoor portrait on a stairway", span: "tall" },
+      { id: "fa7", src: portfolio("fashion-editorial-pose-wall.webp"), alt: "Editorial pose against a textured wall", span: "wide" },
+      { id: "fa8", src: portfolio("fashion-portrait-natural-light.webp"), alt: "Portrait lit with soft natural light", span: "tall" },
+      { id: "fa9", src: portfolio("fashion-look-full-length.webp"), alt: "Full-length fashion look", span: "tall" },
+      { id: "fa10", src: portfolio("fashion-detail-accessory.webp"), alt: "Detail shot of a styling accessory", span: "square" },
+    ],
+    additionalRows: [
+      [
+        { id: "fa11", src: portfolio("fashion-portrait-closeup.webp"), alt: "Close-up fashion portrait", span: "tall" },
+        { id: "fa12", src: portfolio("fashion-look-outdoor.webp"), alt: "Outdoor fashion look", span: "square" },
+        { id: "fa13", src: portfolio("fashion-studio-look-two.webp"), alt: "Studio fashion look", span: "tall" },
+        { id: "fa14", src: portfolio("fashion-portrait-window-light.webp"), alt: "Portrait lit by window light", span: "square" },
+        { id: "fa15", src: portfolio("fashion-look-three.webp"), alt: "Fashion look with layered styling", span: "square" },
+        { id: "fa16", src: portfolio("fashion-portrait-profile.webp"), alt: "Profile fashion portrait", span: "tall" },
+        { id: "fa17", src: portfolio("fashion-editorial-full-body.webp"), alt: "Full-body editorial fashion shot", span: "tall" },
+        { id: "fa18", src: portfolio("fashion-portrait-soft-light.webp"), alt: "Portrait in soft directional light", span: "tall" },
+        { id: "fa19", src: portfolio("fashion-look-four.webp"), alt: "Fashion look on location", span: "square" },
+        { id: "fa20", src: portfolio("fashion-portrait-final.webp"), alt: "Fashion portrait with warm tones", span: "square" },
+      ],
+    ],
+  },
+  {
+    id: "beauty",
+    kicker: "Beauty 05",
+    title: "Beauty",
+    description:
+      "Skin, colour and light — held in close focus.",
+    images: [
+      { id: "be1", src: portfolio("beauty-jewel-eyeshadow-portrait.webp"), alt: "Beauty portrait with jewel-toned eyeshadow and gem detailing", span: "wide" },
+      { id: "be2", src: portfolio("beauty-glam-portrait-studio.webp"), alt: "Studio glam beauty portrait", span: "tall" },
+      { id: "be3", src: portfolio("beauty-closeup-lip-detail.webp"), alt: "Close-up detail of a glossy lip look", span: "tall" },
+      { id: "be4", src: portfolio("beauty-editorial-portrait-one.webp"), alt: "Editorial beauty portrait, look one", span: "tall" },
+      { id: "be5", src: portfolio("beauty-editorial-portrait-two.webp"), alt: "Editorial beauty portrait, look two", span: "tall" },
+      { id: "be6", src: portfolio("beauty-soft-glam-portrait.webp"), alt: "Soft glam beauty portrait", span: "tall" },
+      { id: "be7", src: portfolio("beauty-brush-application-smile.webp"), alt: "Makeup brush application caught mid-smile", span: "tall" },
+      { id: "be8", src: portfolio("beauty-bold-look-portrait.webp"), alt: "Bold beauty look portrait", span: "tall" },
+    ],
+    additionalRows: [
+      [
+        { id: "be9", src: portfolio("beauty-natural-glow-portrait.webp"), alt: "Natural glow beauty portrait", span: "tall" },
+        { id: "be10", src: portfolio("beauty-studio-portrait-final.webp"), alt: "Studio beauty portrait", span: "tall" },
+        { id: "be11", src: portfolio("beauty-portrait-detail-close.webp"), alt: "Close beauty portrait detail", span: "tall" },
+      ],
+    ],
+  },
 ];
 
 export const STUDIO = {
-  label: "Studio Intro",
-  title: "We don't add light. We reveal what was always there.",
+  label: "About",
+  title: "Behind the camera",
   image: {
-    src: portfolio("studio-texture-dark.webp"),
-    alt: "Dark studio texture from production footage",
+    src: portfolio("suri-profile-camera.webp"),
+    alt: "Suri reviewing a photo on his camera with a group of children",
   },
   paragraphs: [
-    "Eleven Rays Productions refuses to settle for the obvious frame. We shoot spaces that breathe, food that makes you reach for your phone, products that stop a scroll, and people that make you look twice.",
-    "Property, editorial, food, product — four worlds, one uncompromising eye.",
-    "This is our craft. We take it personally — because we believe you should too.",
+    "I'm Suri, a commercial and creative photographer based in Chandigarh Tricity.",
+    "My approach is simple: understand the subject, define the purpose and create photographs that feel distinctive, honest and useful. I work independently or alongside artists, agencies and in-house creative teams.",
   ],
-  location:
-    "A part of Eleven Rays.",
+  cta: "More About Me",
+  location: "A part of Work By Suri.",
 } as const;
 
 export const SITE = {
-  name: "Eleven Rays Productions",
-  short: "Eleven Rays",
-  email: "hello@elevenraysproductions.com",
+  name: "Work By Suri",
+  short: "Work By Suri",
+  email: "hello@workbysuri.com",
   instagram: "https://instagram.com",
   linkedin: "https://linkedin.com",
 } as const;

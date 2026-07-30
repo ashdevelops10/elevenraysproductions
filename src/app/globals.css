@@ -6,7 +6,7 @@
   --foreground: #ffffff;
   --muted: #ffffff;
   --hairline: rgba(255, 255, 255, 0.36);
-  --accent: #ffffff;
+  --accent: #e82c00;
 }
 
 @theme inline {
@@ -33,7 +33,7 @@
   --foreground: #ffffff;
   --muted: #ffffff;
   --hairline: rgba(255, 255, 255, 0.36);
-  --accent: #ffffff;
+  --accent: #e82c00;
 }
 
 @keyframes kenburns {

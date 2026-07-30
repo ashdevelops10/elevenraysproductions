@@ -38,7 +38,7 @@ function MarqueeImage({
           alt={image.alt}
           fill
           sizes="(max-width: 640px) 70vw, (max-width: 1024px) 48vw, 34vw"
-          className="object-contain brightness-[1.12] contrast-[1.04] saturate-[1.34] transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+          className="object-contain transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
       </button>
       <figcaption className="pointer-events-none absolute bottom-0 left-0 right-0 translate-y-2 bg-linear-to-t from-black/75 to-transparent p-3 text-[0.56rem] uppercase tracking-[0.2em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
@@ -387,7 +387,7 @@ function LeadImage({
           fill
           priority={priority}
           sizes="(max-width: 1024px) 92vw, 70vw"
-          className="object-contain brightness-[1.12] contrast-[1.04] saturate-[1.34]"
+          className="object-contain"
         />
       </motion.div>
     </div>
@@ -491,6 +491,14 @@ export default function Work() {
             </div>
           </div>
         </Reveal>
+
+        <Reveal delay={0.08}>
+          <ul className="flex flex-wrap gap-x-6 gap-y-3 border-t border-white/12 py-7 text-[0.6rem] uppercase tracking-[0.24em] text-white/60 sm:text-[0.65rem]">
+            {WORK_INTRO.categories.map((category) => (
+              <li key={category}>{category}</li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
 
       {COLLECTIONS.map((collection, index) => (
@@ -500,6 +508,19 @@ export default function Work() {
           index={index}
         />
       ))}
+
+      <div className="relative mx-auto max-w-450 px-5 pb-20 pt-4 sm:px-8 sm:pb-28 lg:px-12">
+        <Reveal>
+          <div className="flex justify-center border-t border-white/12 pt-12 sm:pt-16">
+            <a
+              href="#work"
+              className="border border-white/24 px-6 py-3 text-[0.62rem] uppercase tracking-[0.28em] text-white transition-all duration-500 hover:border-accent hover:text-accent"
+            >
+              {WORK_INTRO.cta}
+            </a>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

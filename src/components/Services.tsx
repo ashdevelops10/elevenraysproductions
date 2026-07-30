@@ -56,6 +56,17 @@ export default function Services() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.1}>
+          <div className="mt-14 flex justify-center sm:mt-20">
+            <a
+              href="#services"
+              className="border border-(--hairline) px-6 py-3 text-[0.62rem] uppercase tracking-[0.28em] text-foreground transition-all duration-500 hover:border-accent hover:text-accent"
+            >
+              {SERVICES_INTRO.cta}
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
