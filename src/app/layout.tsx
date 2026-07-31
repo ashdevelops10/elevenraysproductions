@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Jost, Luckiest_Guy } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const display = Cormorant_Garamond({
   variable: "--font-display",
@@ -67,6 +68,7 @@ export default function RootLayout({
       className={`${display.variable} ${sans.variable} ${logo.variable} h-full antialiased`}
     >
       <body className="grain vignette relative min-h-full flex flex-col">
+        <SmoothScroll />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
